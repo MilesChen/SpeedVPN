@@ -69,41 +69,41 @@ afterEvaluate {
 }
 
 task("downloadGeoipDatabase") {
-    val databaseFile = geoipOutput.resolve("Country.mmdb")
-    val moduleFile = geoipOutput.resolve("go.mod")
-    val sourceFile = geoipOutput.resolve("blob.go")
-
-    val moduleContent = """
-        module "cfa/blob"
-    """.trimIndent()
-
-    val sourceContent = """
-        package blob
-        
-        import _ "embed"
-        
-        //go:embed Country.mmdb
-        var GeoipDatabase []byte
-    """.trimIndent()
-
-    outputs.dir(geoipOutput)
-
-    onlyIf {
-        System.currentTimeMillis() - databaseFile.lastModified() > geoipInvalidate.toMillis()
-    }
-
-    doLast {
-        geoipOutput.mkdirs()
-
-        moduleFile.writeText(moduleContent)
-        sourceFile.writeText(sourceContent)
-
-        URL(geoipDatabaseUrl).openConnection().getInputStream().use { input ->
-            FileOutputStream(databaseFile).use { output ->
-                input.copyTo(output)
-            }
-        }
-    }
+//    val databaseFile = geoipOutput.resolve("Country.mmdb")
+//    val moduleFile = geoipOutput.resolve("go.mod")
+//    val sourceFile = geoipOutput.resolve("blob.go")
+//
+//    val moduleContent = """
+//        module "cfa/blob"
+//    """.trimIndent()
+//
+//    val sourceContent = """
+//        package blob
+//
+//        import _ "embed"
+//
+//        //go:embed Country.mmdb
+//        var GeoipDatabase []byte
+//    """.trimIndent()
+//
+//    outputs.dir(geoipOutput)
+//
+//    onlyIf {
+//        System.currentTimeMillis() - databaseFile.lastModified() > geoipInvalidate.toMillis()
+//    }
+//
+//    doLast {
+//        geoipOutput.mkdirs()
+//
+//        moduleFile.writeText(moduleContent)
+//        sourceFile.writeText(sourceContent)
+//
+//        URL(geoipDatabaseUrl).openConnection().getInputStream().use { input ->
+//            FileOutputStream(databaseFile).use { output ->
+//                input.copyTo(output)
+//            }
+//        }
+//    }
 }
 
 afterEvaluate {

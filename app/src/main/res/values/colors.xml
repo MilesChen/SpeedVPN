@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_launcher_background">#FFFFFF</color>
+    <color name="color_151515">#151515</color>
+    <color name="color_0052FF">#0052FF</color>
+    <color name="color_198CFF">#198CFF</color>
+    <color name="color_1BB2FE">#1BB2FE</color>
+    <color name="color_0078FF">#0078FF</color>
+    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="color_9c9c9c">#9c9c9c</color>
 </resources>

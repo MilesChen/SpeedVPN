@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 选中状态下的颜色 -->
+    <item android:color="@color/color_198CFF" android:state_selected="true"/>
+    <!-- 未选中状态下的颜色 -->
+    <item android:color="@color/color_9c9c9c"/>
+</selector>

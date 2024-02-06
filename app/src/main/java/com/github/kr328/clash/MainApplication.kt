@@ -19,7 +19,6 @@ import java.io.OutputStream
 class MainApplication : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-
         Global.init(this)
     }
 
