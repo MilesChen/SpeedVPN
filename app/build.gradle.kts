@@ -24,6 +24,8 @@ dependencies {
     implementation(libs.androidx.coordinator)
     implementation(libs.androidx.recyclerview)
     implementation(libs.google.material)
+    implementation("com.afollestad.material-dialogs:core:3.3.0")
+    implementation ("com.afollestad.material-dialogs:lifecycle:3.3.0")
 }
 
 tasks.getByName("clean", type = Delete::class) {

@@ -154,7 +154,7 @@ class ProfileManager(private val context: Context) : IProfileManager,
 
                 val userinfo = response.headers["subscription-userinfo"]
                 if (response.isSuccessful && userinfo != null) {
-
+                    android.util.Log.d("chenchao", "userinfo:$userinfo")
                     val flags = userinfo.split(";")
                     for (flag in flags) {
                         val info = flag.split("=")

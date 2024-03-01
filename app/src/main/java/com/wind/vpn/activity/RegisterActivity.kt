@@ -1,20 +1,27 @@
 package com.wind.vpn.activity
 
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.github.kr328.clash.R
+import com.wind.vpn.WindGlobal
+import com.wind.vpn.data.account.WindAccount
+import com.wind.vpn.data.WindApi
 import com.wind.vpn.widget.InputView
-import org.w3c.dom.Text
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class RegisterActivity : BaseActivity(), TextWatcher {
+class RegisterActivity : BaseActivity(), TextWatcher,
+    CoroutineScope by CoroutineScope(Dispatchers.Main) {
     private lateinit var inputName: InputView
     private lateinit var inputPwd1: InputView
     private lateinit var inputPwd2: InputView
@@ -22,6 +29,7 @@ class RegisterActivity : BaseActivity(), TextWatcher {
     private lateinit var changeRegister: TextView
     private lateinit var llAgree: View;
     private lateinit var cbAgree: CheckBox
+    private lateinit var title: TextView
     private var isRegister = false
     private var isShowPwd1 = false
     private var isShowPwd2 = false
@@ -47,30 +55,39 @@ class RegisterActivity : BaseActivity(), TextWatcher {
 
     override fun initView() {
         super.initView()
+
         inputName = findViewById(R.id.input_username)
         inputPwd1 = findViewById(R.id.input_pwd_1)
         inputPwd2 = findViewById(R.id.input_pwd_2)
+        title = findViewById(R.id.tv_header_bold)
         btn = findViewById(R.id.btn_register)
         changeRegister = findViewById(R.id.tv_change_register)
         llAgree = findViewById(R.id.ll_agree)
         cbAgree = findViewById(R.id.cb_agreement)
+        cbAgree.setOnCheckedChangeListener{_, _ ->  updateBtn()}
         changeRegister.setOnClickListener {
             updateRegisterState(true)
+        }
+        btn.setOnClickListener {
+            loginOrRegister()
         }
         inputName.suffixIcon.setImageResource(R.drawable.icon_clear_text)
         inputName.prefixIcon.setImageResource(R.drawable.icon_people)
         inputName.inputText.setHint(R.string.hint_name)
+        inputName.inputText.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         inputPwd1.suffixIcon.setImageResource(R.drawable.icon_pw_hide)
         inputPwd1.prefixIcon.setImageResource(R.drawable.icon_key)
         inputPwd1.inputText.setHint(R.string.hint_pwd1)
+        inputPwd1.inputText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         inputPwd2.suffixIcon.setImageResource(R.drawable.icon_pw_hide)
         inputPwd2.prefixIcon.setImageResource(R.drawable.icon_key)
         inputPwd2.inputText.setHint(R.string.hint_pwd2)
+        inputPwd2.inputText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         setShowPwd(inputPwd1.inputText, inputPwd1.suffixIcon, isShowPwd1)
         setShowPwd(inputPwd2.inputText, inputPwd2.suffixIcon, isShowPwd2)
-        updateRegisterState(false)
         addWatcher()
         addClick()
+        updateRegisterState(false)
     }
 
     private fun addClick() {
@@ -104,8 +121,11 @@ class RegisterActivity : BaseActivity(), TextWatcher {
     }
 
     private fun updateBtn() {
-        val enable: Boolean =
-            inputName.inputText.text?.isNotEmpty() ?: false && inputPwd1.inputText.text?.isNotEmpty() ?: false && (inputPwd2.inputText.text?.isNotEmpty() ?: false || !isRegister)
+        val isNameOk = inputName.inputText.text?.isNotEmpty() ?: false
+        val isPwd1Ok = inputPwd1.inputText.text?.isNotEmpty() ?: false
+        val isPwd2Ok = inputPwd2.inputText.text?.isNotEmpty()?:false
+        val isCheckbox = cbAgree.isChecked
+        val enable: Boolean = isNameOk && isPwd1Ok && ((isPwd2Ok && isCheckbox) || !isRegister)
         btn.isEnabled = enable;
     }
 
@@ -115,6 +135,7 @@ class RegisterActivity : BaseActivity(), TextWatcher {
         inputPwd2.visibility = if (isRegister) View.VISIBLE else View.GONE
         btn.setText(if (isRegister) R.string.btn_register else R.string.btn_login)
         llAgree.visibility = if (isRegister) View.VISIBLE else View.GONE
+        title.setText(if (isRegister) R.string.act_title_register else R.string.act_title_login)
         updateBtn()
     }
 
@@ -128,6 +149,43 @@ class RegisterActivity : BaseActivity(), TextWatcher {
         }
         if (et.text?.isNotEmpty() == true) {
             et.setSelection(et.text.length)
+        }
+    }
+
+    private fun loginOrRegister() {
+        if (isRegister) {
+            val pwd1 = inputPwd1.inputText.text.toString()
+            val pwd2 = inputPwd2.inputText.text.toString()
+            if (pwd1 != pwd2) {
+                showToast("two passwords not same")
+                return
+            }
+        }
+        login()
+    }
+
+    private fun login() {
+        showLoading()
+        launch(Dispatchers.IO) {
+            val email = inputName.inputText.text.toString()
+            val pwd = inputPwd1.inputText.text.toString()
+            val loginResult = if (!isRegister) WindApi.login(email, pwd) else WindApi.register(email, pwd)
+            withContext(Dispatchers.Main) {
+                if (loginResult.isSuccess && loginResult.data != null) {
+                    val account = WindAccount()
+                    account.token = loginResult.data!!.token
+                    account.email = email
+                    account.pwd = pwd
+                    account.auth_data = loginResult.data!!.auth_data
+                    WindGlobal.account = account
+                    finish()
+                } else if (loginResult.httpCode == 422) {
+                    showToast(getString(R.string.toast_pwd_err))
+                } else {
+                    showToast(getString(R.string.toast_error))
+                }
+                hideLoading()
+            }
         }
     }
 }

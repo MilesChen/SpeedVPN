@@ -16,6 +16,11 @@ class AppStore(context: Context) {
         defaultValue = -1,
     )
 
+    var lastSSO: String by store.string(key = "last_sso", defaultValue = "")
+    var lastHost: String by store.string(key = "last_host", defaultValue = "")
+    var account: String by store.string(key = "wind_account", defaultValue = "{}")
+    var userInfo: String by store.string(key = "wind_user", defaultValue = "{}")
+
     companion object {
         private const val FILE_NAME = "app"
     }

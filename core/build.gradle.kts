@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.kotlin.coroutine)
     implementation(libs.kotlin.serialization.json)
+    api("com.google.code.gson:gson:2.10.1")
 }
 
 afterEvaluate {

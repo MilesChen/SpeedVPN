@@ -1,6 +1,7 @@
 package com.github.kr328.clash
 
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -42,7 +43,9 @@ abstract class BaseActivity<D : Design<*>> :
         ProfileLoaded,
         ProfileChanged,
         ProfileUpdateCompleted,
-        ProfileUpdateFailed
+        ProfileUpdateFailed,
+        LoginSuccess,
+        UserInfoChanged
     }
 
 
@@ -57,6 +60,7 @@ abstract class BaseActivity<D : Design<*>> :
 
             if (value != null) {
                 setContentView(value.root)
+                value.initDesign()
             } else {
                 setContentView(View(this))
             }
@@ -100,9 +104,7 @@ abstract class BaseActivity<D : Design<*>> :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        applyDayNight()
-
+        setWindowStyle()
         launch {
             main()
 
@@ -159,11 +161,6 @@ abstract class BaseActivity<D : Design<*>> :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        if (queryDayNight(newConfig) != dayNight) {
-            ApplicationObserver.createdActivities.forEach {
-                it.recreate()
-            }
-        }
     }
 
     open fun shouldDisplayHomeAsUpEnabled(): Boolean {
@@ -174,6 +171,17 @@ abstract class BaseActivity<D : Design<*>> :
         this.onBackPressed()
 
         return true
+    }
+
+    override fun onBackPressed() {
+        if (overrideBackPress()) {
+            return;
+        }
+        super.onBackPressed()
+    }
+
+    open fun overrideBackPress(): Boolean{
+        return false
     }
 
     override fun onProfileChanged() {
@@ -210,51 +218,19 @@ abstract class BaseActivity<D : Design<*>> :
         }
     }
 
-    private fun queryDayNight(config: Configuration = resources.configuration): DayNight {
-        return when (uiStore.darkMode) {
-            DarkMode.Auto -> {
-                if (config.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
-                    DayNight.Night
-                else
-                    DayNight.Day
-            }
-            DarkMode.ForceLight -> {
-                DayNight.Day
-            }
-            DarkMode.ForceDark -> {
-                DayNight.Night
-            }
-        }
+    override fun onLogin() {
+        events.trySend(Event.LoginSuccess)
     }
 
-    private fun applyDayNight(config: Configuration = resources.configuration) {
-        val dayNight = queryDayNight(config)
-
-        when (dayNight) {
-            DayNight.Night -> {
-                theme.applyStyle(R.style.AppThemeDark, true)
-            }
-            DayNight.Day -> {
-                theme.applyStyle(R.style.AppThemeLight, true)
-            }
-        }
-
-        window.isAllowForceDarkCompat = false
-        window.isSystemBarsTranslucentCompat = true
-
-        window.statusBarColor = resolveThemedColor(android.R.attr.statusBarColor)
-        window.navigationBarColor = resolveThemedColor(android.R.attr.navigationBarColor)
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            window.isLightStatusBarsCompat =
-                resolveThemedBoolean(android.R.attr.windowLightStatusBar)
-        }
-
-        if (Build.VERSION.SDK_INT >= 27) {
-            window.isLightNavigationBarCompat =
-                resolveThemedBoolean(android.R.attr.windowLightNavigationBar)
-        }
-
-        this.dayNight = dayNight
+    override fun onUserInfo() {
+        events.trySend(Event.UserInfoChanged)
     }
+
+    private fun setWindowStyle() {
+        window.decorView
+            .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.setBackgroundDrawable(getDrawable(R.drawable.bg_b))
+    }
+
 }

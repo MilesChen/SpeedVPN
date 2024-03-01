@@ -24,6 +24,11 @@ object Intents {
     val ACTION_PROFILE_LOADED = "$packageName.intent.action.PROFILE_LOADED"
     val ACTION_OVERRIDE_CHANGED = "$packageName.intent.action.OVERRIDE_CHANGED"
 
+    val ACTION_LOGIN_SUCCESS = "$packageName.intent.action.LOGIN_SUCCESS"
+    val ACTION_LOGOUT = "$packageName.intent.action.LOGOUT"
+    val ACTION_USER_LOADED = "$packageName.intent.action.USER_LOADED"
+
+
     const val EXTRA_STOP_REASON = "stop_reason"
     const val EXTRA_UUID = "uuid"
     const val EXTRA_FAIL_REASON = "fail_reason"

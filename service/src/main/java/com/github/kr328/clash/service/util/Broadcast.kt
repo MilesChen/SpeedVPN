@@ -2,6 +2,7 @@ package com.github.kr328.clash.service.util
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.constants.Permissions
 import java.util.*
@@ -28,6 +29,7 @@ fun Context.sendProfileLoaded(uuid: UUID) {
 }
 
 fun Context.sendProfileUpdateCompleted(uuid: UUID) {
+    Log.d("chenchao", "sendProfileUpdateCompleted")
     val intent = Intent(Intents.ACTION_PROFILE_UPDATE_COMPLETED)
         .putExtra(Intents.EXTRA_UUID, uuid.toString())
 

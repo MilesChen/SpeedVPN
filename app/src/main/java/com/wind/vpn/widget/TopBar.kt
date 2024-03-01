@@ -11,9 +11,9 @@ import com.wind.vpn.util.dp2px
 import com.wind.vpn.util.getStatusBarHeight
 
 open class TopBar:RelativeLayout {
-    lateinit var titleView: TextView
-    lateinit var icon: ImageView
-    lateinit var listener: TopBarListener
+    private lateinit var titleView: TextView
+    private lateinit var icon: ImageView
+    private lateinit var listener: () -> Unit
     constructor(context: Context) : super(context) {
         init(context)
     }
@@ -35,7 +35,8 @@ open class TopBar:RelativeLayout {
         setPadding(paddingLeft, getStatusBarHeight(context), paddingRight, paddingBottom)
         titleView = findViewById(R.id.top_bar_text);
         icon = findViewById(R.id.top_bar_icon);
-        icon.setOnClickListener { listener?.onIconClick() }
+        icon.setImageResource(R.drawable.icon_title_back)
+        icon.setOnClickListener { listener?.invoke() }
     }
 
     fun setIcon(resId: Int) {
@@ -47,7 +48,7 @@ open class TopBar:RelativeLayout {
         titleView.setText(resId)
     }
 
-    fun setTopBarListener(topBarListener: TopBarListener) {
+    fun setTopBarListener(topBarListener: ()->Unit) {
         listener = topBarListener
     }
 }

@@ -8,6 +8,8 @@ import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.remote.Remote
 import com.github.kr328.clash.service.util.sendServiceRecreated
 import com.github.kr328.clash.util.clashDir
+import com.wind.vpn.WindGlobal
+import com.wind.vpn.data.DomainManager
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -20,6 +22,7 @@ class MainApplication : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         Global.init(this)
+        WindGlobal.init(this)
     }
 
     override fun onCreate() {

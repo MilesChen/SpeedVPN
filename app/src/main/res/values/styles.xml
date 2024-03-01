@@ -36,7 +36,9 @@
     <style name="TextNormalStyle.Bold.Blue">
         <item name="android:textColor">@color/color_198CFF</item>
     </style>
-
+    <style name="TextNormalStyle.Bold.Big.Blue">
+        <item name="android:textColor">@color/color_198CFF</item>
+    </style>
     <style name="TextSmallStyle">
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/color_151515</item>
@@ -89,4 +91,5 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/shaper_btn_blue_light_enable</item>
     </style>
+
 </resources>

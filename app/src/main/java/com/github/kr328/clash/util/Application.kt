@@ -1,10 +1,12 @@
 package com.github.kr328.clash.util
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import java.io.File
 import java.util.zip.ZipFile
 
@@ -82,4 +84,18 @@ fun Context.verifyApk(): Boolean {
     } catch (e: Exception) {
         false
     }
+}
+
+fun Context.isMainProgress():Boolean {
+    val pid = Process.myPid()
+    val ams: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    ams.runningAppProcesses ?: return false
+    val progressInfos = ams.runningAppProcesses
+    for (item in progressInfos) {
+        if (item.pid == pid && item.processName == packageName) {
+            return true
+        }
+    }
+    return false
+
 }

@@ -49,7 +49,7 @@
     <string name="btn_fill_id" translatable="false">Get Membership</string>
     <string name="change_to_register" translatable="false">Register new account</string>
     <string name="safe_loss_follow" translatable="false">Follow on social media @1234566433</string>
-    <string name="hint_name" translatable="false">Please enter user name</string>
+    <string name="hint_name" translatable="false">Please enter email address</string>
     <string name="hint_fill_id" translatable="false">Your friend’s recommendation ID</string>
     <string name="hint_pwd1" translatable="false">Please enter password</string>
     <string name="hint_pwd2" translatable="false">Please enter password again</string>
@@ -57,4 +57,15 @@
     <string name="cb_agree_name" translatable="false">Platform Service Agreement</string>
     <string name="safe_mode" translatable="false">Safe mode</string>
     <string name="speed_mode" translatable="false">Extreme speed mode</string>
+    <string name="account_expired" translatable="false">Account has expired</string>
+    <string name="account_platinum" translatable="false">Platinum Member</string>
+    <string name="account_bronze" translatable="false">Bronze Member</string>
+    <string name="account_days" translatable="false">days expire</string>
+    <string name="account_hours" translatable="false">hours expire</string>
+    <string name="account_minutes" translatable="false">minutes expire</string>
+    <string name="account_expire_time" translatable="false">Expire data: %1$s</string>
+    <string name="account_register_login" translatable="false">Log in/Register ></string>
+    <string name="toast_pwd_err" translatable="false">incorrect password</string>
+    <string name="toast_loading" translatable="false">loading...</string>
+    <string name="toast_error" translatable="false">request failed</string>
 </resources>

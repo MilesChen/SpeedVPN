@@ -21,6 +21,7 @@ val noticeIcon: IntArray = intArrayOf(
 
 class HomeActivity : BaseActivity() {
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var connectBtn: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,6 +34,7 @@ class HomeActivity : BaseActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         val iconsView = findViewById<RelativeLayout>(R.id.icons)
         val uniOffset = dp2px(this, 19f)
+        connectBtn = findViewById(R.id.btn_connect)
         for ((i, id) in noticeIcon.withIndex()) {
             val icon = ImageView(this)
             icon.setImageResource(id)

@@ -44,16 +44,18 @@ abstract class Design<R>(val context: Context) :
             ).apply(configure).show()
         }
     }
+    open fun initDesign() {
 
+    }
     init {
-        when (context) {
-            is AppCompatActivity -> {
-                context.window.decorView.setOnInsertsChangedListener {
-                    if (surface.insets != it) {
-                        surface.insets = it
-                    }
-                }
-            }
-        }
+//        when (context) {
+//            is AppCompatActivity -> {
+//                context.window.decorView.setOnInsertsChangedListener {
+//                    if (surface.insets != it) {
+//                        surface.insets = it
+//                    }
+//                }
+//            }
+//        }
     }
 }

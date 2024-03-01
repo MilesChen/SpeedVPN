@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import com.github.kr328.clash.R
+import com.wind.vpn.WindGlobal
 import com.wind.vpn.activity.ChangeCountryActivity
 import com.wind.vpn.activity.MemberFreeActivity
 import com.wind.vpn.activity.MessageActivity
@@ -19,6 +22,8 @@ import com.wind.vpn.activity.SafeLossActivity
 import com.wind.vpn.activity.UploadLogActivity
 import com.wind.vpn.activity.UserCenterActivity
 import com.wind.vpn.util.goTargetClass
+import java.text.SimpleDateFormat
+import java.util.*
 
 val MENU_ICONS = intArrayOf(
     R.drawable.icon_menu_1_country,
@@ -53,7 +58,9 @@ val TARGET_CLASS = arrayListOf<Class<*>>(
     UploadLogActivity::class.java
 )
 
-class DrawerView : ConstraintLayout,OnClickListener{
+class DrawerView : ConstraintLayout, OnClickListener {
+    lateinit var tvUserName: TextView
+
     constructor(context: Context) : super(context) {
         init(context)
     }
@@ -72,8 +79,9 @@ class DrawerView : ConstraintLayout,OnClickListener{
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.nav_header, this, true)
-        val headView = findViewById<View>(R.id.drawer_header)
-        headView.setOnClickListener {
+        val header = findViewById<View>(R.id.drawer_header)
+        tvUserName = findViewById(R.id.tv_name)
+        header.setOnClickListener {
             if (true) {
                 goTargetClass(context, RegisterActivity::class.java)
             } else {
@@ -81,21 +89,35 @@ class DrawerView : ConstraintLayout,OnClickListener{
             }
 
         }
-        var menuContainer = findViewById<LinearLayout>(R.id.layout_menu)
+        val layoutMenu: LinearLayout = findViewById(R.id.layout_menu)
         for ((i, id) in MENU_ICONS.withIndex()) {
             val menuInfo = MenuInfo(id, MENU_TEXTS[i])
             val menuView = MenuView(context)
             menuView.setMenu(menuInfo)
             menuView.setOnClickListener(this)
             menuView.tag = i
-            menuContainer.addView(menuView)
+            layoutMenu.addView(menuView)
         }
+        updateAccount()
+
     }
 
+    fun setExpire(expire: Long) {
+        val tvExpire: TextView = findViewById(R.id.tv_expire)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        tvExpire.text = context.getString(R.string.account_expire_time, dateFormat.format(expire))
+    }
 
     override fun onClick(v: View?) {
-        var i = 0;
-        i = v?.tag as Int
+        var i = v?.tag as Int
         goTargetClass(context, TARGET_CLASS[i])
+    }
+
+    fun updateAccount() {
+        if (WindGlobal.account.isLogin()) {
+            tvUserName.text = WindGlobal.account.email
+        } else {
+            tvUserName.setText(R.string.account_register_login)
+        }
     }
 }

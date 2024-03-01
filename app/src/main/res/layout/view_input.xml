@@ -21,7 +21,6 @@
         android:maxLength="32"
         android:maxLines="1"
         android:layout_marginLeft="14dp"
-        android:inputType="number"
         android:background="@null"
         android:gravity="center_vertical"
         style="@style/TextNormalStyle.Input"/>
