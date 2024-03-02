@@ -154,7 +154,6 @@ class ProfileManager(private val context: Context) : IProfileManager,
 
                 val userinfo = response.headers["subscription-userinfo"]
                 if (response.isSuccessful && userinfo != null) {
-                    android.util.Log.d("chenchao", "userinfo:$userinfo")
                     val flags = userinfo.split(";")
                     for (flag in flags) {
                         val info = flag.split("=")
@@ -248,6 +247,14 @@ class ProfileManager(private val context: Context) : IProfileManager,
 
     override suspend fun setActive(profile: Profile) {
         ProfileProcessor.active(context, profile.uuid)
+    }
+
+    override suspend fun exists(name: String): Boolean {
+        return ImportedDao().exists(name) || PendingDao().exists(name)
+    }
+
+    override suspend fun queryUUIDByName(name: String): UUID? {
+        return PendingDao().queryUUIDByName(name)?:ImportedDao().queryUUIDByName(name)
     }
 
     private suspend fun resolveProfile(uuid: UUID): Profile? {

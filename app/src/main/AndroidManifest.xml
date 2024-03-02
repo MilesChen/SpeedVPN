@@ -133,7 +133,9 @@
         <activity
             android:name="com.wind.vpn.activity.RegisterActivity"
             android:exported="false" />
-
+        <activity
+            android:name="com.wind.vpn.activity.RechargeActivity"
+            android:exported="false" />
         <activity
             android:name=".ApkBrokenActivity"
             android:configChanges="uiMode"

@@ -9,6 +9,12 @@ interface ImportedDao {
     @Query("SELECT * FROM imported WHERE uuid = :uuid")
     suspend fun queryByUUID(uuid: UUID): Imported?
 
+    @Query("SELECT * FROM imported WHERE name = :name LIMIT 1" )
+    suspend fun queryByName(name: String): Pending?
+
+    @Query("SELECT uuid FROM imported WHERE name = :name LIMIT 1" )
+    suspend fun queryUUIDByName(name: String): UUID?
+
     @Query("SELECT uuid FROM imported ORDER BY createdAt")
     suspend fun queryAllUUIDs(): List<UUID>
 
@@ -23,4 +29,7 @@ interface ImportedDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM imported WHERE uuid = :uuid)")
     suspend fun exists(uuid: UUID): Boolean
+
+    @Query("SELECT EXISTS(SELECT 1 FROM imported WHERE name = :name)")
+    suspend fun exists(name: String): Boolean
 }

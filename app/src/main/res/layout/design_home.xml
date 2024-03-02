@@ -113,9 +113,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/bottom_renew"
                 android:layout_width="match_parent"
                 android:layout_height="88dp"
                 android:background="#ffffff"
+                android:onClick="@{()->self.request(Request.OpenCharge)}"
                 android:elevation="10dp"
                 android:orientation="horizontal"
                 android:outlineSpotShadowColor="#e0000000"

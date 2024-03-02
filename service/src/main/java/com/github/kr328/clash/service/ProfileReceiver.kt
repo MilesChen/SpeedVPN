@@ -70,7 +70,6 @@ class ProfileReceiver : BroadcastReceiver() {
         }
 
         fun schedule(context: Context, imported: Imported) {
-            android.util.Log.d("chenchao", "schedule")
             val intent = pendingIntentOf(context, imported)
 
             context.getSystemService<AlarmManager>()?.cancel(intent)
@@ -79,7 +78,6 @@ class ProfileReceiver : BroadcastReceiver() {
         }
 
         fun scheduleNext(context: Context, imported: Imported) {
-            android.util.Log.d("chenchao", "scheduleNext")
             val intent = pendingIntentOf(context, imported)
 
             context.getSystemService<AlarmManager>()?.cancel(intent)

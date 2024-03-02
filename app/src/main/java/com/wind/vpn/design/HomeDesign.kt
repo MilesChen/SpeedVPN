@@ -31,6 +31,7 @@ const val one_day = 24 * one_hour
 class HomeDesign(context: Context):WindDesign<HomeDesign.Request>(context) {
     enum class Request {
         ToggleStatus,
+        OpenCharge
     }
     private val binding = DesignHomeBinding.inflate(context.layoutInflater, context.root, false)
     override val topBarView: TopBar
@@ -100,6 +101,7 @@ class HomeDesign(context: Context):WindDesign<HomeDesign.Request>(context) {
     fun request(request: Request) {
         requests.trySend(request)
     }
+
 
     fun overrideBackPress():Boolean {
         if (binding.drawerLayout.isDrawerOpen(binding.leftDrawer)) {

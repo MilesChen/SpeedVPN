@@ -82,7 +82,7 @@ object RequestManager {
             }
             result.httpCode = response.code
         } catch (e : Exception) {
-            Log.e(TAG, "get exception by getReq url $url")
+            Log.e(TAG, "get exception by getReq url $url", e)
             e.printStackTrace()
         }
         return result
@@ -138,7 +138,7 @@ object RequestManager {
             result.httpCode = response.code
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "get exception by postReq url $url")
+            Log.e(TAG, "get exception by postReq url $url", e)
         }
         return result
     }

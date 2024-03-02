@@ -16,6 +16,7 @@ import com.github.kr328.clash.util.withProfile
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.data.WindApi
 import com.wind.vpn.design.HomeDesign
+import com.wind.vpn.util.goTargetClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -49,6 +50,9 @@ class HomeAct : BaseActivity<HomeDesign>() {
                                 stopClashService()
                             else
                                 design.startClash()
+                        }
+                        HomeDesign.Request.OpenCharge -> {
+                            goTargetClass(this@HomeAct, RechargeActivity::class.java)
                         }
                     }
                 }
