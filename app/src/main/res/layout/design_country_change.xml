@@ -26,7 +26,7 @@
                 android:id="@+id/top_layout_mode"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#8076CEFF"
+                android:background="#2076CEFF"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
                 <TextView
@@ -42,7 +42,10 @@
                     android:id="@+id/speed_mode_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/selector_switch_track"
+                    android:track="@null"
+                    android:thumb="@null"/>
                 <TextView
                     android:id="@+id/tv_right_speed"
                     android:layout_width="wrap_content"

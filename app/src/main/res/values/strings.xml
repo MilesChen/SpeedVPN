@@ -21,9 +21,12 @@
     <string name="act_title_register" translatable="false">Register an account</string>
     <string name="act_title_login" translatable="false">Login account</string>
     <string name="act_title_member_select" translatable="false">Select member</string>
+    <string name="act_title_pay_order" translatable="false">Pay order</string>
+    <string name="act_title_message_center" translatable="false">Message Center</string>
     <string name="user_center_level" translatable="false">Membership level</string>
     <string name="user_center_remain" translatable="false">Remaining time</string>
     <string name="user_center_device" translatable="false">Native device</string>
+    <string name="user_center_balance" translatable="false">Account Balance</string>
     <string name="recommend_detail_top" translatable="false">Recommend friends and\nget permanent membership</string>
     <string name="recommend_detail_small" translatable="false">After the friend installs successfully, fill in your ID and the recommendation will be considered successful;</string>
     <string name="memberfree_detail_top" translatable="false">Get membership for free</string>
@@ -58,16 +61,40 @@
     <string name="cb_agree_name" translatable="false">Platform Service Agreement</string>
     <string name="safe_mode" translatable="false">Safe mode</string>
     <string name="speed_mode" translatable="false">Extreme speed mode</string>
+    <string name="no_content" translatable="false">no content</string>
     <string name="account_expired" translatable="false">Account has expired</string>
     <string name="account_platinum" translatable="false">Platinum Member</string>
     <string name="account_bronze" translatable="false">Bronze Member</string>
     <string name="account_days" translatable="false">days expire</string>
     <string name="account_hours" translatable="false">hours expire</string>
     <string name="account_minutes" translatable="false">minutes expire</string>
+    <string name="days" translatable="false">Days</string>
+    <string name="minutes" translatable="false">Minutes</string>
     <string name="account_expire_time" translatable="false">Expire data: %1$s</string>
     <string name="account_register_login" translatable="false">Log in/Register ></string>
     <string name="toast_pwd_err" translatable="false">incorrect password</string>
     <string name="toast_loading" translatable="false">loading...</string>
-    <string name="toast_error" translatable="false">request failed</string>
-    <string name="charge_bottom_tips" translatable="false">If you have any questions during the payment process, please contact us directly online service</string>
+    <string name="toast_error" translatable="false">Request Failed</string>
+    <string name="toast_save_suc" translatable="false">Save Success</string>
+    <string name="toast_pay_suc" translatable="false">Pay Success</string>
+    <string name="toast_open_vpn" translatable="false">Please establish VPN</string>
+    <string name="charge_bottom_tips_prefix" translatable="false">If you have any questions during the payment process, please contact us directly</string>
+    <string name="charge_bottom_tips_suffix" translatable="false">Online Service</string>
+    <string name="month_price" translatable="false">1 Month</string>
+    <string name="quarter_price" translatable="false">3 Months</string>
+    <string name="half_year_price" translatable="false">6 Months</string>
+    <string name="year_price" translatable="false">1 Year</string>
+    <string name="two_year_price" translatable="false">2 Years</string>
+    <string name="three_year_price" translatable="false">3 Years</string>
+    <string name="onetime_price" translatable="false">Onetime</string>
+    <string name="payment" translatable="false">Payment</string>
+    <string name="coupon_hint" translatable="false">Have Coupon?</string>
+    <string name="coupon_btn_verify" translatable="false">Verify</string>
+    <string name="coupon_btn_clear" translatable="false">Clear</string>
+    <string name="coupon_discount" translatable="false">Discount</string>
+    <string name="balance_amount" translatable="false">Balance Amount</string>
+    <string name="total_amount" translatable="false">Total Amount</string>
+    <string name="discount_amount" translatable="false">Discount Amount</string>
+    <string name="network_suffix" translatable="false">automatic</string>
+    <string name="network_prefix" translatable="false">Network:</string>
 </resources>

@@ -14,15 +14,20 @@ import com.github.kr328.clash.util.stopClashService
 import com.github.kr328.clash.util.withClash
 import com.github.kr328.clash.util.withProfile
 import com.wind.vpn.WindGlobal
+import com.wind.vpn.bean.NET_ERR
 import com.wind.vpn.data.WindApi
+import com.wind.vpn.data.account.GUEST_SUFFIX
+import com.wind.vpn.data.account.WindAccount
 import com.wind.vpn.design.HomeDesign
 import com.wind.vpn.util.goTargetClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
+import kotlinx.coroutines.withContext
 
 class HomeAct : BaseActivity<HomeDesign>() {
+    private var firstResume = true
     override suspend fun main() {
         val design = HomeDesign(this)
         setContentDesign(design)
@@ -33,7 +38,6 @@ class HomeAct : BaseActivity<HomeDesign>() {
                         Event.ServiceRecreated,
                         Event.ClashStop, Event.ClashStart,
                         Event.ProfileLoaded, Event.ProfileChanged, Event.UserInfoChanged -> design.fetch()
-
                         Event.LoginSuccess -> loadUserInfo()
                         Event.ActivityStart -> {
                             loadUserInfo()
@@ -52,7 +56,7 @@ class HomeAct : BaseActivity<HomeDesign>() {
                                 design.startClash()
                         }
                         HomeDesign.Request.OpenCharge -> {
-                            goTargetClass(this@HomeAct, RechargeActivity::class.java)
+                            goRenew()
                         }
                     }
                 }
@@ -94,15 +98,6 @@ class HomeAct : BaseActivity<HomeDesign>() {
     private suspend fun HomeDesign.fetch() {
         setClashRunning(clashRunning)
 
-        val state = withClash {
-            queryTunnelState()
-        }
-        val providers = withClash {
-            queryProviders()
-        }
-
-//        val active = withProfile { queryActive() }
-//        active?.let { setRemainTime(active.expire) }
         updateUI()
     }
 
@@ -113,5 +108,42 @@ class HomeAct : BaseActivity<HomeDesign>() {
     private fun loadUserInfo() {
         if (!WindGlobal.account.isLogin()) return
         WindGlobal.loadUserInfoFromServer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (firstResume && !WindGlobal.account.isLogin()) {
+            firstResume = false
+            tryRegisterGuest()
+        }
+    }
+
+    private fun tryRegisterGuest() {
+        showLoading()
+        launch(Dispatchers.IO) {
+            val email = "${WindGlobal.androidid}$GUEST_SUFFIX"
+            val pwd = WindGlobal.androidid
+//            val email = "648672865@qq.com"
+//            val pwd = "111111111"
+            var loginResult = WindApi.register(email, pwd)
+            if (!loginResult.isSuccess && loginResult.retCode != NET_ERR) {
+                loginResult = WindApi.login(email, pwd)
+            }
+            withContext(Dispatchers.Main) {
+                if (loginResult.isSuccess && loginResult.data != null) {
+                    val account = WindAccount()
+                    account.token = loginResult.data!!.token
+                    account.email = email
+                    account.pwd = pwd
+                    account.auth_data = loginResult.data!!.auth_data
+                    WindGlobal.account = account
+                } else if (loginResult.httpCode == 422) {
+                    showToast(getString(R.string.toast_pwd_err))
+                } else {
+                    showToast(getString(R.string.toast_error))
+                }
+                hideLoading()
+            }
+        }
     }
 }

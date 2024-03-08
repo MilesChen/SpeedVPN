@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shaper_bg_white"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/color_198CFF"/>
+        <TextView
+            android:id="@+id/tv_message_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginLeft="16dp"
+            android:text="How does a VPN run stably?"
+            android:textColor="#151515"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="8dp"
+            style="@style/TextSmallStyle.Gray"
+            android:layout_below="@id/tv_message_title"
+            android:layout_alignLeft="@id/tv_message_title" />
+
+    </RelativeLayout>
+</layout>

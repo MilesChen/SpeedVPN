@@ -1,6 +1,7 @@
 package com.github.kr328.clash.service
 
 import android.content.Context
+import android.util.Log
 import com.github.kr328.clash.service.data.Database
 import com.github.kr328.clash.service.data.Imported
 import com.github.kr328.clash.service.data.ImportedDao
@@ -206,8 +207,8 @@ class ProfileManager(private val context: Context) : IProfileManager,
     }
 
     override suspend fun commit(uuid: UUID, callback: IFetchObserver?) {
+        Log.d("chenchao", "start commit $uuid")
         ProfileProcessor.apply(context, uuid, callback)
-
         scheduleUpdate(uuid, false)
     }
 

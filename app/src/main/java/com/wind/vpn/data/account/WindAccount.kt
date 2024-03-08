@@ -9,4 +9,8 @@ class WindAccount {
     fun isLogin():Boolean {
         return !email.isNullOrEmpty() && !token.isNullOrEmpty() && !auth_data.isNullOrEmpty()
     }
+
+    val isGuestAccount:Boolean
+        get() { return isLogin() && email?.endsWith(GUEST_SUFFIX) ?: false }
 }
+const val GUEST_SUFFIX = "@networkok.net"

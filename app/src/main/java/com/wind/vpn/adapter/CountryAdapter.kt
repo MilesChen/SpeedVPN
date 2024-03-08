@@ -1,5 +1,6 @@
 package com.wind.vpn.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class CountryAdapter(private val group: ProxyGroup, private val clicked: (String
     override fun onBindViewHolder(holder: CountryHolder, position: Int) {
         holder.itemView.apply {
             setOnClickListener{
+                Log.d("chenchao", "onclick")
                 clicked(group.proxies[position].name)
                 group.now = group.proxies[position].name
                 notifyDataSetChanged()

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BootstrapTheme" parent="AppThemeLight">
+    <style name="BootstrapTheme" parent="WindTheme">
         <item name="android:windowBackground">@drawable/icon_launcher_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
+    <style name="WindTheme.White" parent="BootstrapTheme">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
     <style name="NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>

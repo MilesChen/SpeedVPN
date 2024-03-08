@@ -14,12 +14,13 @@ import com.github.kr328.clash.R
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.data.account.WindAccount
 import com.wind.vpn.data.WindApi
+import com.wind.vpn.util.buildSupperLinkSpan
 import com.wind.vpn.widget.InputView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+const val KEY_GO_RENEW = "key_go_renew"
 class RegisterActivity : BaseActivity(), TextWatcher,
     CoroutineScope by CoroutineScope(Dispatchers.Main) {
     private lateinit var inputName: InputView
@@ -27,12 +28,12 @@ class RegisterActivity : BaseActivity(), TextWatcher,
     private lateinit var inputPwd2: InputView
     private lateinit var btn: TextView
     private lateinit var changeRegister: TextView
-    private lateinit var llAgree: View;
     private lateinit var cbAgree: CheckBox
     private lateinit var title: TextView
     private var isRegister = false
     private var isShowPwd1 = false
     private var isShowPwd2 = false
+    private var goRenew = false;
     override fun getLayoutResId(): Int {
         return R.layout.act_register_login
     }
@@ -55,16 +56,17 @@ class RegisterActivity : BaseActivity(), TextWatcher,
 
     override fun initView() {
         super.initView()
-
+        goRenew = intent.getBooleanExtra(KEY_GO_RENEW, false)
         inputName = findViewById(R.id.input_username)
         inputPwd1 = findViewById(R.id.input_pwd_1)
         inputPwd2 = findViewById(R.id.input_pwd_2)
         title = findViewById(R.id.tv_header_bold)
         btn = findViewById(R.id.btn_register)
         changeRegister = findViewById(R.id.tv_change_register)
-        llAgree = findViewById(R.id.ll_agree)
         cbAgree = findViewById(R.id.cb_agreement)
         cbAgree.setOnCheckedChangeListener{_, _ ->  updateBtn()}
+//        cbAgree.text = "${getString(R.string.cb_agree_prefix)} ${getString(R.string.cb_agree_name)}"
+        cbAgree.buildSupperLinkSpan("${getString(R.string.cb_agree_prefix)} ${getString(R.string.cb_agree_name)}", getString(R.string.cb_agree_name), "https://www.baidu.com")
         changeRegister.setOnClickListener {
             updateRegisterState(true)
         }
@@ -74,7 +76,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
         inputName.suffixIcon.setImageResource(R.drawable.icon_clear_text)
         inputName.prefixIcon.setImageResource(R.drawable.icon_people)
         inputName.inputText.setHint(R.string.hint_name)
-        inputName.inputText.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        inputName.inputText.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT
         inputPwd1.suffixIcon.setImageResource(R.drawable.icon_pw_hide)
         inputPwd1.prefixIcon.setImageResource(R.drawable.icon_key)
         inputPwd1.inputText.setHint(R.string.hint_pwd1)
@@ -134,7 +136,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
         changeRegister.visibility = if (isRegister) View.GONE else View.VISIBLE
         inputPwd2.visibility = if (isRegister) View.VISIBLE else View.GONE
         btn.setText(if (isRegister) R.string.btn_register else R.string.btn_login)
-        llAgree.visibility = if (isRegister) View.VISIBLE else View.GONE
+        cbAgree.visibility = if (isRegister) View.VISIBLE else View.GONE
         title.setText(if (isRegister) R.string.act_title_register else R.string.act_title_login)
         updateBtn()
     }
@@ -171,6 +173,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
             val pwd = inputPwd1.inputText.text.toString()
             val loginResult = if (!isRegister) WindApi.login(email, pwd) else WindApi.register(email, pwd)
             withContext(Dispatchers.Main) {
+                hideLoading()
                 if (loginResult.isSuccess && loginResult.data != null) {
                     val account = WindAccount()
                     account.token = loginResult.data!!.token
@@ -178,13 +181,15 @@ class RegisterActivity : BaseActivity(), TextWatcher,
                     account.pwd = pwd
                     account.auth_data = loginResult.data!!.auth_data
                     WindGlobal.account = account
+                    if (goRenew) {
+                        goRenew()
+                    }
                     finish()
-                } else if (loginResult.httpCode == 422) {
-                    showToast(getString(R.string.toast_pwd_err))
+                } else if (!loginResult.message.isNullOrEmpty()) {
+                    showToast(loginResult.message!!)
                 } else {
                     showToast(getString(R.string.toast_error))
                 }
-                hideLoading()
             }
         }
     }

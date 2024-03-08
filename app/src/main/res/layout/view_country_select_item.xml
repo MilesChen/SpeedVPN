@@ -29,5 +29,6 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="4dp"
         android:layout_alignParentRight="true"
+        android:button="@drawable/selector_check_box"
         android:clickable="false"/>
 </RelativeLayout>

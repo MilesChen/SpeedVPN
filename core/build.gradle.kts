@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.kotlin.coroutine)
     implementation(libs.kotlin.serialization.json)
     api("com.google.code.gson:gson:2.10.1")
+    api("com.github.bumptech.glide:glide:4.16.0")
 }
 
 afterEvaluate {

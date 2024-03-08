@@ -11,10 +11,10 @@ import android.widget.TextView
 import com.github.kr328.clash.R
 
 class MenuView : RelativeLayout {
-    private lateinit var menuIcon: ImageView
-    private lateinit var menuText: TextView
-    private lateinit var menuInfo: MenuInfo
-    private lateinit var menuRight: TextView
+    lateinit var menuIcon: ImageView
+    lateinit var menuText: TextView
+    lateinit var menuInfo: MenuInfo
+    lateinit var menuRight: TextView
 
     constructor(context: Context) : super(context) {
         init(context)

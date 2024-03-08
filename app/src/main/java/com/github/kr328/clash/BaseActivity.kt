@@ -1,5 +1,6 @@
 package com.github.kr328.clash
 
+import android.app.AlertDialog
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
@@ -231,6 +232,26 @@ abstract class BaseActivity<D : Design<*>> :
             .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         window.setStatusBarColor(Color.TRANSPARENT);
         window.setBackgroundDrawable(getDrawable(R.drawable.bg_b))
+    }
+
+    private var loadingProgressBar: AlertDialog? = null
+    fun showLoading() {
+        if (loadingProgressBar == null) {
+            val builder = AlertDialog.Builder(this)
+            builder.setView(R.layout.view_loading_dialog)
+            loadingProgressBar = builder.create()
+        }
+        loadingProgressBar?.show()
+    }
+
+    fun hideLoading() {
+        loadingProgressBar?.let {
+            try {
+                loadingProgressBar?.dismiss()
+            }catch (e: Exception) {
+
+            }
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.wind.vpn.data
 
 import android.util.Log
+import com.github.kr328.clash.common.Global
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.bean.BaseBean
 import com.wind.vpn.bean.ERROR
@@ -8,6 +9,8 @@ import com.wind.vpn.bean.NET_ERR
 import com.wind.vpn.bean.SUCCESS
 import com.wind.vpn.bean.toRespBean
 import okhttp3.FormBody
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -18,7 +21,7 @@ import org.json.JSONObject
 
 object RequestManager {
     const val TAG = "RequestManager"
-    private val commonParams = HashMap<String, Any?>()
+    val commonParams = HashMap<String, Any?>()
     val client = OkHttpClient()
 
     inline fun <reified R> requestByGetComm(
@@ -26,11 +29,7 @@ object RequestManager {
         params: HashMap<String, Any?> = HashMap(),
         transform: (String) -> String = { ex -> ex }
     ): BaseBean<R> {
-        addCommonParams(params)
-        if (WindGlobal.account.isLogin()) {
-            params["Authorization"] = WindGlobal.account.auth_data
-        }
-        return requestByGetDomainRetry(api, params, transform)
+        return requestByGetDomainRetry<R>(api, params, transform)
     }
 
     inline fun <reified R> requestByGetDomainRetry(
@@ -56,36 +55,46 @@ object RequestManager {
 
     inline fun <reified R> requestByGet(
         url: String,
-        headers: HashMap<String, Any?> = HashMap(),
+        params:HashMap<String, Any?> = HashMap(),
         transform: (String) -> String = { ex -> ex }
     ): BaseBean<R>? {
         Log.d(TAG, "start do GET request $url")
         var result: BaseBean<R> = BaseBean()
         try {
+            refreshCommHeaders()
+            val httpUrl = url.toHttpUrl().newBuilder()
+            httpUrl.apply {
+                for (entry in params) {
+                    addQueryParameter(entry.key, "${entry.value}")
+                }
+            }
             val request = Request.Builder().apply {
-                url(url)
-                for (entry in headers) {
+                url(httpUrl.build())
+                for (entry in commonParams) {
                     addHeader(entry.key, "${entry.value}")
                 }
                 method("GET", null)
             }.build()
             val response: Response = client.newCall(request).execute()
-            if (!response.isSuccessful) {
-                Log.d(TAG, "get error from $url $response")
-                result = "{}".toRespBean<R>()
-                result?.retCode = ERROR
-            } else {
-                val respStr = transform((response.body?.string()) ?: "{}")
-                result = respStr.toRespBean<R>()
-                result?.retCode = SUCCESS
-                Log.d(TAG, "get response from url:$url retCode:${response.code} resp:$respStr")
-            }
+            val respStr = transform((response.body?.string()) ?: "{}")
+            result = respStr.toRespBean<R>()
+            result?.retCode = if (response.isSuccessful) SUCCESS else ERROR
+            Log.d(TAG, "get response from url:$url retCode:${response.code} resp:$respStr")
             result.httpCode = response.code
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             Log.e(TAG, "get exception by getReq url $url", e)
             e.printStackTrace()
+            result.retCode = NET_ERR
         }
         return result
+    }
+
+    inline fun <reified R> requestByPostComm(
+        api: String,
+        params: HashMap<String, Any?> = HashMap<String, Any?>(),
+        transform: (String) -> String = { ex -> ex }
+    ): BaseBean<R> {
+        return requestByPostDomainRetry<R>(api, params, transform)
     }
 
     inline fun <reified R> requestByPostDomainRetry(
@@ -116,38 +125,39 @@ object RequestManager {
     ): BaseBean<R>? {
         var result: BaseBean<R> = BaseBean()
         try {
-            addCommonParams(params)
+            refreshCommHeaders()
             val json = JSONObject(params).toString()
             val requestBody = json?.let {
                 var contentType: MediaType = "application/json".toMediaType()
                 json.toRequestBody(contentType)
             } ?: run { FormBody.Builder().build() }
             Log.d(TAG, "start post request and url is $url requestBody:$json")
-            val request = Request.Builder().url(url).post(requestBody).build()
+            val request = Request.Builder().apply {
+                url(url)
+                post(requestBody)
+                for (entry in commonParams) {
+                    addHeader(entry.key, "${entry.value}")
+                }
+
+            }.build()
             val response: Response = client.newCall(request).execute()
-            if (!response.isSuccessful) {
-                Log.d(TAG, "get error from $url $response")
-                result = "{}".toRespBean<R>()
-                result?.retCode = ERROR
-            } else {
-                val respStr = transform((response.body?.string()) ?: "{}")
-                result = respStr.toRespBean<R>()
-                result?.retCode = SUCCESS
-                Log.d(TAG, "get response from url:$url retCode:${response.code} resp:$respStr")
-            }
+            val respStr = transform((response.body?.string()) ?: "{}")
+            result = respStr.toRespBean<R>()
+            result?.retCode = if (response.isSuccessful) SUCCESS else ERROR
+            Log.d(TAG, "get response from url:$url retCode:${response.code} resp:$respStr")
             result.httpCode = response.code
         } catch (e: Exception) {
+            result.retCode = NET_ERR
             e.printStackTrace()
             Log.e(TAG, "get exception by postReq url $url", e)
         }
         return result
     }
 
-    fun addCommonParams(params: HashMap<String, Any?>) {
+    @Synchronized
+    fun refreshCommHeaders():HashMap<String, Any?> {
         if (commonParams.isEmpty()) {
             commonParams.apply {
-                put("uEmail", WindGlobal.email)
-                put("brand", WindGlobal.token)
                 put("osVer", WindGlobal.osVer)
                 put("vCode", WindGlobal.vCode)
                 put("vName", WindGlobal.vName)
@@ -156,22 +166,29 @@ object RequestManager {
                 put("brand", WindGlobal.brand)
                 put("product", WindGlobal.product)
                 put("platform", "Android")
-            }
-        } else {
-            commonParams.apply {
-                put("uEmail", WindGlobal.email)
-                put("brand", WindGlobal.token)
+                put("aid", WindGlobal.androidid)
             }
         }
-        params.putAll(commonParams)
+        if (WindGlobal.account.isLogin()) {
+            commonParams.apply {
+                put("uEmail", WindGlobal.email)
+                put("token", WindGlobal.token)
+                put("Authorization", WindGlobal.account.auth_data)
+            }
+
+        }
+        return commonParams
     }
 
-    fun buildFormBody(params: HashMap<String, Any?>): FormBody {
-        addCommonParams(params)
+    fun buildFormBody(): FormBody {
         val build = FormBody.Builder()
-        for (entry in params) {
+        for (entry in commonParams) {
             build.add(entry.key, (entry.value?.toString()) ?: "")
         }
         return build.build()
     }
+}
+
+fun <R> BaseBean<R>.getErrMsg():String {
+    return if (message.isNullOrEmpty()) Global.application.getString(com.github.kr328.clash.R.string.toast_error) else message!!
 }

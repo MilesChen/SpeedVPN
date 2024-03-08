@@ -17,6 +17,7 @@ buildscript {
         classpath(libs.build.kotlin.serialization)
         classpath(libs.build.ksp)
         classpath(libs.build.golang)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
     }
 }
 
@@ -34,7 +35,7 @@ subprojects {
     extensions.configure<BaseExtension> {
         defaultConfig {
             if (isApp) {
-                applicationId = "com.github.metacubex.clash"
+                applicationId = "com.wind.vpn"
             }
 
             minSdk = 21

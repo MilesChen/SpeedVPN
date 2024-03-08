@@ -4,9 +4,14 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Process
+import com.wind.vpn.activity.BrowserActivity
+import com.wind.vpn.activity.KEY_TARGET_URL
+import com.wind.vpn.util.goTargetClass
 import java.io.File
 import java.util.zip.ZipFile
 
@@ -98,4 +103,19 @@ fun Context.isMainProgress():Boolean {
     }
     return false
 
+}
+
+fun Context.startLoadUrl(url:String) {
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.addCategory(Intent.CATEGORY_BROWSABLE)
+    val url = Uri.parse(url)
+    intent.setData(url)
+    intent.setPackage("com.android.browser")
+    startActivity(intent);
+}
+
+fun Context.openInnerBrowser(url:String) {
+    val bundle = Bundle()
+    bundle.putString(KEY_TARGET_URL, url)
+    goTargetClass(this, BrowserActivity::class.java, bundle)
 }

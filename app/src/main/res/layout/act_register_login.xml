@@ -102,33 +102,21 @@
         android:text="@string/change_to_register"
         style="@style/TextSmallStyle.Blue"/>
 
-    <LinearLayout
-        android:id="@+id/ll_agree"
+    <CheckBox
+        android:id="@+id/cb_agreement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:text="@string/cb_agree_prefix"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        style="@style/TextLittleStyle.black"
+        android:button="@drawable/selector_check_box"
+        android:buttonTint="@null"
+        android:layout_marginTop="24dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_register"
         app:layout_constraintRight_toRightOf="parent"
-        >
-        <CheckBox
-            android:id="@+id/cb_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cb_agree_prefix"
-            style="@style/TextLittleStyle.black"
-            android:buttonTint="@null"
-             />
-        <TextView
-            android:id="@+id/tv_agree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cb_agree_name"
-            style="@style/TextLittleStyle.Blue"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:layout_marginLeft="4dp"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

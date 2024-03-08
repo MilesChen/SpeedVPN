@@ -22,7 +22,7 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
     private const val TAG = "DomainManager"
     private const val defaultSSOJson: String =
         "{\"RemoteHosts\":[\"https://fastmeta.net\",\"\"],\"RemoteType\":0,\"HomePage\":\"https://fastmeta.net\",\"SupportApi\":\"\",\"TelegramGroup\":\"https://t.me/mao3vpn\",\"BuiltInProxy\":\"\"}"
-    private var ssoBean: SSOBean =
+    var ssoBean: SSOBean =
         store.lastSSO.toBean<SSOBean>() ?: (defaultSSOJson.toBean<SSOBean>() ?: SSOBean())
 
     fun init() {

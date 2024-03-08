@@ -7,3 +7,9 @@ fun Any?.toJson():String{
     if (this is String) return this.toString()
     return Gson().toJson(this)
 }
+
+fun Any.getPropertyValue(propName: String): Any? {
+    val field = this::class.java.getDeclaredField(propName)
+    field?.isAccessible = true
+    return field?.get(this)
+}

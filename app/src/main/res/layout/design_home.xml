@@ -36,6 +36,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffffff"
         tools:context=".MainActivity">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_content"
@@ -169,6 +170,7 @@
             android:id="@+id/left_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="true"
             android:layout_gravity="start"
             android:background="#ffffff" />
     </androidx.drawerlayout.widget.DrawerLayout>

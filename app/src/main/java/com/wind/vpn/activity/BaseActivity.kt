@@ -21,6 +21,8 @@ import com.github.kr328.clash.design.ui.ToastDuration
 import com.github.kr328.clash.remote.Remote
 import com.github.kr328.clash.util.ActivityResultLifecycle
 import com.google.android.material.snackbar.Snackbar
+import com.wind.vpn.WindGlobal
+import com.wind.vpn.util.goTargetClass
 import com.wind.vpn.widget.TopBar
 import com.wind.vpn.widget.TopBarListener
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +42,11 @@ open abstract class BaseActivity : AppCompatActivity(), TopBarListener, Coroutin
             .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         window.setStatusBarColor(Color.TRANSPARENT);
         window.setBackgroundDrawable(getDrawable(R.drawable.bg_b))
-        setContentView(getLayoutResId())
+        if (getLayoutResId() != 0) {
+            setContentView(getLayoutResId())
+        } else {
+            setContentView(genCustomView())
+        }
         var topBar: TopBar = findViewById(R.id.top_bar_view)
         topBar.setTopBarListener{onTopBarIconClick()}
         topBar.setIcon(getToBarIcon())
@@ -52,7 +58,13 @@ open abstract class BaseActivity : AppCompatActivity(), TopBarListener, Coroutin
 
     }
 
-    abstract fun getLayoutResId(): Int
+    open fun genCustomView():View {
+        return View(this)
+    }
+
+    open fun getLayoutResId(): Int {
+        return 0
+    }
 
     open fun getToBarIcon(): Int {
         return R.drawable.icon_title_back
@@ -73,21 +85,23 @@ open abstract class BaseActivity : AppCompatActivity(), TopBarListener, Coroutin
         cancel()
     }
 
-    protected fun showLoading() {
+    fun showLoading() {
         if (loadingProgressBar == null) {
             val builder = AlertDialog.Builder(this)
+            builder.setCancelable(false)
             builder.setView(R.layout.view_loading_dialog)
             loadingProgressBar = builder.create()
+            loadingProgressBar!!.setCanceledOnTouchOutside(false)
         }
         loadingProgressBar?.show()
     }
 
-    protected fun hideLoading() {
+    fun hideLoading() {
         loadingProgressBar?.let {
             try {
                 loadingProgressBar?.dismiss()
             }catch (e: Exception) {
-
+                e.printStackTrace()
             }
         }
     }
@@ -115,4 +129,14 @@ open abstract class BaseActivity : AppCompatActivity(), TopBarListener, Coroutin
 
 fun Context.showToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+}
+
+fun Context.goRenew() {
+    if (WindGlobal.account.isLogin() && !WindGlobal.account.isGuestAccount) {
+        goTargetClass(this, RechargeActivity::class.java)
+    } else {
+        val bundle = Bundle()
+        bundle.putBoolean(KEY_GO_RENEW, true)
+        goTargetClass(this, RegisterActivity::class.java, bundle)
+    }
 }
