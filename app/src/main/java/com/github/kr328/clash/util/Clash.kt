@@ -31,14 +31,14 @@ fun Context.startClashService(): Intent? {
     } else {
         startForegroundServiceCompat(ClashService::class.intent)
     }
-    CoroutineScope(Dispatchers.IO).launch {
-        withClash {
-            delay(200)
-            val mode = queryOverride(Clash.OverrideSlot.Session)
-            mode.mode = tunnel
-            patchOverride(Clash.OverrideSlot.Session, mode)
-        }
-    }
+//    CoroutineScope(Dispatchers.IO).launch {
+//        withClash {
+//            delay(200)
+//            val mode = queryOverride(Clash.OverrideSlot.Session)
+//            mode.mode = tunnel
+//            patchOverride(Clash.OverrideSlot.Session, mode)
+//        }
+//    }
 
     return null
 }

@@ -30,6 +30,7 @@ import com.wind.vpn.activity.goRenew
 import com.wind.vpn.activity.showToast
 import com.wind.vpn.data.DomainManager
 import com.wind.vpn.util.goTargetClass
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -89,6 +90,8 @@ class DrawerView : ConstraintLayout, OnClickListener {
         LayoutInflater.from(context).inflate(R.layout.nav_header, this, true)
         val header = findViewById<View>(R.id.drawer_header)
         val renewBtn = findViewById<View>(R.id.tv_renewal_drawer)
+        val tvVerName:TextView = findViewById(R.id.tv_version_name)
+        tvVerName.text = "${context.getString(R.string.current_version)} ${WindGlobal.vName}"
         renewBtn.setOnClickListener {
             context.goRenew()
         }

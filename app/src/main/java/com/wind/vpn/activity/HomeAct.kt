@@ -1,12 +1,15 @@
 package com.wind.vpn.activity
 
 import android.content.Intent
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kr328.clash.BaseActivity
 import com.github.kr328.clash.ProfilesActivity
 import com.github.kr328.clash.R
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.util.intent
+import com.github.kr328.clash.common.util.ticker
+import com.github.kr328.clash.design.MainDesign
 import com.github.kr328.clash.design.ui.ToastDuration
 import com.github.kr328.clash.service.util.sendBroadcastSelf
 import com.github.kr328.clash.util.startClashService
@@ -25,12 +28,14 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 class HomeAct : BaseActivity<HomeDesign>() {
     private var firstResume = true
     override suspend fun main() {
         val design = HomeDesign(this)
         setContentDesign(design)
+        val ticker = ticker(TimeUnit.SECONDS.toMillis(1))
         while (isActive) {
             select<Unit> {
                 events.onReceive {
@@ -40,6 +45,7 @@ class HomeAct : BaseActivity<HomeDesign>() {
                         Event.ProfileLoaded, Event.ProfileChanged, Event.UserInfoChanged -> design.fetch()
                         Event.LoginSuccess -> loadUserInfo()
                         Event.ActivityStart -> {
+                            Log.d("chenchao", "events.onReceive $it and start fetch")
                             loadUserInfo()
                             design.fetch()
                         }
@@ -48,6 +54,7 @@ class HomeAct : BaseActivity<HomeDesign>() {
                     }
                 }
                 design.requests.onReceive {
+                    Log.d("chenchao", "on receive $it")
                     when (it) {
                         HomeDesign.Request.ToggleStatus -> {
                             if (clashRunning)
@@ -60,8 +67,19 @@ class HomeAct : BaseActivity<HomeDesign>() {
                         }
                     }
                 }
+                if (clashRunning) {
+                    ticker.onReceive {
+                        fetchTraffic()
+                    }
+                }
             }
 
+        }
+    }
+
+    private suspend fun fetchTraffic() {
+        withClash {
+            queryTrafficTotal()
         }
     }
 
@@ -69,12 +87,17 @@ class HomeAct : BaseActivity<HomeDesign>() {
         val active = withProfile { queryActive() }
 
         if (active == null || !active.imported) {
-            showToast(R.string.no_profile_selected, ToastDuration.Long) {
-                setAction(R.string.profiles) {
-                    startActivity(ProfilesActivity::class.intent)
+            if (WindGlobal.account.isLogin()) {
+                if (WindGlobal.account.isGuestAccount) {
+                    showToast(getString(R.string.toast_expired))
+                    goTargetClass(this@HomeAct, RegisterActivity::class.java)
+                } else if(WindGlobal.userInfo.expired_at < System.currentTimeMillis()) {
+                    showToast(getString(R.string.toast_plan_expired))
+                    goRenew()
                 }
+            } else {
+                goTargetClass(this@HomeAct, RegisterActivity::class.java)
             }
-
             return
         }
 
@@ -97,11 +120,20 @@ class HomeAct : BaseActivity<HomeDesign>() {
 
     private suspend fun HomeDesign.fetch() {
         setClashRunning(clashRunning)
-
+        val state = withClash {
+            queryTunnelState()
+        }
+        val providers = withClash {
+            queryProviders()
+        }
+        withProfile {
+//            setProfileName(queryActive()?.name)
+        }
         updateUI()
     }
 
     override fun overrideBackPress(): Boolean {
+        super.overrideBackPress()
         return design?.overrideBackPress() == true
     }
 
@@ -122,6 +154,7 @@ class HomeAct : BaseActivity<HomeDesign>() {
         showLoading()
         launch(Dispatchers.IO) {
             val email = "${WindGlobal.androidid}$GUEST_SUFFIX"
+//            val email = "648672865$GUEST_SUFFIX"
             val pwd = WindGlobal.androidid
 //            val email = "648672865@qq.com"
 //            val pwd = "111111111"

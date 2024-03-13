@@ -44,29 +44,30 @@ class ChangeCountryActivity : BaseActivity() {
     }
 
     private fun initData() {
+        binding.speedModeSwitch.isChecked = uiStore.tunnelMode== TunnelState.Mode.Rule
         binding.tvLeftSafe.isSelected = !binding.speedModeSwitch.isChecked
         binding.tvRightSpeed.isSelected = binding.speedModeSwitch.isChecked
-        launch(Dispatchers.IO) {
-            withClash {
-                val o = queryOverride(Clash.OverrideSlot.Session)
-                withContext(Dispatchers.Main) {
-                    if (o != null && o.mode == TunnelState.Mode.Rule) {
-                        binding.speedModeSwitch.isChecked = true
-                    }
-                }
-            }
-        }
+//        launch(Dispatchers.IO) {
+//            withClash {
+//                val o = queryOverride(Clash.OverrideSlot.Session)
+//                withContext(Dispatchers.Main) {
+//                    if (o != null && o.mode == TunnelState.Mode.Rule) {
+//                        binding.speedModeSwitch.isChecked = true
+//                    }
+//                }
+//            }
+//        }
         binding.speedModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             run {
                 binding.tvLeftSafe.isSelected = !isChecked
                 binding.tvRightSpeed.isSelected = isChecked
                 launch(Dispatchers.IO) {
                     withClash {
-                        val o = queryOverride(Clash.OverrideSlot.Session)
+//                        val o = queryOverride(Clash.OverrideSlot.Session)
                         val targetMode =
                             if (isChecked) TunnelState.Mode.Rule else TunnelState.Mode.Global
-                        o.mode = targetMode
-                        patchOverride(Clash.OverrideSlot.Session, o)
+//                        o.mode = targetMode
+//                        patchOverride(Clash.OverrideSlot.Session, o)
                         uiStore.tunnelMode = targetMode
                     }
                 }

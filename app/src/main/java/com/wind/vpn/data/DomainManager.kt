@@ -21,7 +21,7 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
     private var lastValidHost_: String = store.lastHost;
     private const val TAG = "DomainManager"
     private const val defaultSSOJson: String =
-        "{\"RemoteHosts\":[\"https://fastmeta.net\",\"\"],\"RemoteType\":0,\"HomePage\":\"https://fastmeta.net\",\"SupportApi\":\"\",\"TelegramGroup\":\"https://t.me/mao3vpn\",\"BuiltInProxy\":\"\"}"
+        "{\"RemoteHosts\":[\"https://justsososo.site\",\"\"],\"RemoteType\":0,\"HomePage\":\"https://justsososo.site\",\"SupportApi\":\"\",\"TelegramGroup\":\"https://t.me/mao3vpn\",\"BuiltInProxy\":\"\"}"
     var ssoBean: SSOBean =
         store.lastSSO.toBean<SSOBean>() ?: (defaultSSOJson.toBean<SSOBean>() ?: SSOBean())
 
@@ -36,9 +36,10 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
             var ssoResult: BaseBean<SSOBean>? =
                 RequestManager.requestByGet<SSOBean>(url) { ex ->
                     run {
-                        var tempSSO = ex.toBean<SSOBean>()
+//                        var tempSSO = ex.toBean<SSOBean>()
                         var temp = BaseBean<SSOBean>()
-                        temp.data = tempSSO
+                        //临时写死
+                        temp.data = ssoBean
                         Gson().toJson(temp)
                     }
                 }

@@ -68,3 +68,10 @@ afterEvaluate {
 tasks.getByName("clean", type = Delete::class) {
     delete(file(geoFilesDownloadDir))
 }
+android {
+    buildTypes {
+        getByName("release") {
+            isDebuggable = true
+        }
+    }
+}

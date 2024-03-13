@@ -73,7 +73,7 @@ class PayCheckoutActivity : BaseActivity() {
     private fun checkOrderState() {
         showLoading()
         launch(Dispatchers.IO) {
-            var result = WindApi.checkOrderStatus(orderDetail!!.trade_no)
+            var result = WindApi.checkOrderStatus(orderDetail!!.trade_no!!)
             withContext(Dispatchers.Main) {
                 if (result.isSuccess && result.data != 0) {
                     showToast(getString(R.string.toast_pay_suc))
@@ -136,7 +136,7 @@ class PayCheckoutActivity : BaseActivity() {
             menuView.menuIcon.visibility = View.GONE
             menuView.setMenu(MenuInfo(R.drawable.icon_device, R.string.total_amount))
             val period = orderDetail!!.period
-            val count: Long = orderDetail!!.plan.getPropertyValue(period) as Long
+            val count: Long = orderDetail!!.plan!!.getPropertyValue(period!!) as Long
             menuView.setRight("$paySymbol ${centToYuan(count)}")
             binding.llOrderDetail.addView(menuView, 0, LinearLayout.LayoutParams(-1, dp2px(40f)))
         }
@@ -175,7 +175,7 @@ class PayCheckoutActivity : BaseActivity() {
         showLoading()
         launch(Dispatchers.IO) {
             val checkResult =
-                WindApi.checkoutOrder(orderDetail!!.trade_no, payMethods!![selectMethod].id)
+                WindApi.checkoutOrder(orderDetail!!.trade_no!!, payMethods!![selectMethod].id)
             if (checkResult.isSuccess && !checkResult.data.isNullOrEmpty()) {
                 if (checkResult.data == "true" && checkResult.type == -1) {
                     checkOrderState()

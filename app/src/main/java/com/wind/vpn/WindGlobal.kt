@@ -93,7 +93,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
             }
         }
         launch {
-            delay(1000L)
+//            delay(1000L)
             var windSubscribe = WindApi.loadWindSubscribe()
             if (windSubscribe.isSuccess) {
                 subscribe = windSubscribe.data!!
@@ -107,7 +107,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                                 existsUUID = create(
                                     Profile.Type.Url,
                                     name,
-                                    it.subscribe_url
+                                    it.subscribe_url!!
                                 )
                             }
                             val profile = queryByUUID(existsUUID)

@@ -72,7 +72,7 @@ class RechargeActivity:BaseActivity() {
     }
 
     inner class MyAdapter(fragmentManager: FragmentManager) :
-        FragmentPagerAdapter(fragmentManager) {
+        FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             private val fragments = HashMap<Int, Fragment>()
         override fun getCount(): Int {
             return planList.size

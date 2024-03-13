@@ -1,10 +1,10 @@
 package com.wind.vpn.data.bean
 
-data class PayMethod(
-    val handling_fee_fixed: Any,
-    val handling_fee_percent: Any,
-    val icon: String,
-    val id: Int,
-    val name: String,
-    val payment: String
-)
+class PayMethod {
+    var handling_fee_fixed: Any? = null
+    var handling_fee_percent: Any? = null
+    var icon: String? = null
+    var id: Int =0
+    var name: String? = null
+    var payment: String? = null
+}

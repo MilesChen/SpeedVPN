@@ -1,18 +1,18 @@
 package com.wind.vpn.data.bean
 
-data class CouponBean(
-    val code: String,
-    val created_at: Int,
-    val ended_at: Int,
-    val id: Int,
-    val limit_period: List<String>,
-    val limit_plan_ids: List<String>,
-    val limit_use: Any,
-    val limit_use_with_user: Any,
-    val name: String,
-    val show: Int,
-    val started_at: Int,
-    val type: Int,
-    val updated_at: Int,
-    val value: Long
-)
+ class CouponBean {
+     var code: String? = null
+     var created_at: Int = 0
+     var ended_at: Int = 0
+     var id: Int = 0
+     var limit_period: List<String>? = null
+     var limit_plan_ids: List<String>? = null
+     var limit_use: Any? = null
+     var limit_use_with_user: Any? = null
+     var name: String? = null
+     var show: Int = 0
+     var started_at: Int = 0
+     var type: Int = 0
+     var updated_at: Int = 0
+     var value: Long = 0L
+ }

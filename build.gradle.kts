@@ -35,14 +35,14 @@ subprojects {
     extensions.configure<BaseExtension> {
         defaultConfig {
             if (isApp) {
-                applicationId = "com.wind.vpn"
+                applicationId = "com.github.metacubex.clash"
             }
 
             minSdk = 21
             targetSdk = 31
 
-            versionName = "2.10.0"
-            versionCode = 210000
+            versionName = "1.0.0"
+            versionCode = 240308
 
             resValue("string", "release_name", "v$versionName")
             resValue("integer", "release_code", "$versionCode")
@@ -78,7 +78,7 @@ subprojects {
             create("meta-alpha") {
                 isDefault = true
                 dimension = flavorDimensionList[0]
-                versionNameSuffix = ".Meta-Alpha"
+//                versionNameSuffix = ".Meta-Alpha"
 
                 buildConfigField("boolean", "PREMIUM", "Boolean.parseBoolean(\"false\")")
 

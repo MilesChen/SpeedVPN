@@ -1,10 +1,10 @@
 package com.wind.vpn.data.bean
 
-data class NoticeBean(
-    val content: String,
-    val created_at: Int,
-    val id: Int,
-    val img_url: Any,
-    val title: String,
-    val updated_at: Int
-)
+class NoticeBean {
+    var content: String? = null
+    var created_at: Int = 0
+    var id: Int = 0
+    var img_url: Any? = null
+    var title: String? = null
+    var updated_at: Int = 0
+}

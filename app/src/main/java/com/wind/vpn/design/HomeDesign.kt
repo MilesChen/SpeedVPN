@@ -3,6 +3,7 @@ package com.wind.vpn.design
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -23,6 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToLong
 
 val noticeIcon: IntArray = intArrayOf(
     R.drawable.icon_top_0,
@@ -82,10 +84,10 @@ class HomeDesign(context: Context) : WindDesign<HomeDesign.Request>(context) {
             result
         } else {
             if (timeSpace > one_day) {
-                binding.tvRemainTime.text = "${timeSpace / one_day}"
+                binding.tvRemainTime.text = "${(timeSpace / one_day.toDouble()).roundToLong()}"
                 binding.tvRemainDesc.setText(R.string.account_days)
             } else if (timeSpace > one_hour) {
-                binding.tvRemainTime.text = "${timeSpace / one_hour}"
+                binding.tvRemainTime.text = "${(timeSpace / one_hour.toDouble()).roundToLong()}"
                 binding.tvRemainDesc.setText(R.string.account_hours)
             } else {
                 binding.tvRemainTime.text = "${timeSpace / one_minute + 1}"
@@ -128,7 +130,8 @@ class HomeDesign(context: Context) : WindDesign<HomeDesign.Request>(context) {
     }
 
     fun request(request: Request) {
-        requests.trySend(request)
+        val  result = requests.trySend(request)
+        Log.d("chenchao", "result of request $result")
     }
 
 

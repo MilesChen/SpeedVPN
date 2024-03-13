@@ -2,18 +2,18 @@ package com.wind.vpn.data.account
 
 import com.wind.vpn.data.bean.WindPlan
 
-data class WindSubscribe(
-    val alive_ip: Int,
-    val d: Int,
-    val device_limit: Int,
-    val email: String,
-    val expired_at: Int,
-    val plan: WindPlan,
-    val plan_id: Int,
-    val reset_day: Int,
-    val subscribe_url: String,
-    val token: String,
-    val transfer_enable: Long,
-    val u: Int,
-    val uuid: String
-)
+class WindSubscribe {
+    var alive_ip: Int = 0
+    var d: Int = 0
+    var device_limit: Int = 0
+    var email: String? = null
+    var expired_at: Int = 0
+    var plan: WindPlan? = null
+    var plan_id: Int = 0
+    var reset_day: Int = 0
+    var subscribe_url: String? = null
+    var token: String? = null
+    var transfer_enable: Long = 0L
+    var u: Int = 0
+    var uuid: String? = null
+}

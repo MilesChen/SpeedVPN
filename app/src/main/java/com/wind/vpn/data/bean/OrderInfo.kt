@@ -1,6 +1,6 @@
 package com.wind.vpn.data.bean
 
-data class OrderInfo(
+class OrderInfo {
     /*invite_user_id	number	邀请人id
     plan_id	number	订阅id
     coupon_id	number	优惠券id
@@ -23,27 +23,27 @@ data class OrderInfo(
     updated_at	timestamp	更新时间
     plan	关联表	订阅详情*/
 
-val actual_commission_balance: Any,
-    val balance_amount: Long,
-    val callback_no: Any,
-    val commission_balance: Int,
-    val commission_status: Int,
-    val coupon_id: Any,
-    val created_at: Int,
-    val discount_amount: Long,
-    val handling_amount: Any,
-    val invite_user_id: Any,
-    val paid_at: Any,
-    val payment_id: Any,
-    val period: String,
-    val plan: WindPlan,
-    val plan_id: Int,
-    val refund_amount: Any,
-    val status: Int,
-    val surplus_amount: Any,
-    val surplus_order_ids: Any,
-    val total_amount: Long,
-    val trade_no: String,
-    val type: Int,
-    val updated_at: Int
-)
+    var actual_commission_balance: Any? = null
+    var balance_amount: Long =0L
+    var callback_no: Any? = null
+    var commission_balance: Int = 0
+    var commission_status: Int = 0
+    var coupon_id: Any? = null
+    var created_at: Int = 0
+    var discount_amount: Long = 0L
+    var handling_amount: Any? = null
+    var invite_user_id: Any? = null
+    var paid_at: Any? = null
+    var payment_id: Any? = null
+    var period: String? = null
+    var plan: WindPlan? = null
+    var plan_id: Int? = null
+    var refund_amount: Any? = null
+    var status: Int = 0
+    var surplus_amount: Any? = null
+    var surplus_order_ids: Any? = null
+    var total_amount: Long = 0L
+    var trade_no: String? = null
+    var type: Int = 0
+    var updated_at: Int = 0
+}

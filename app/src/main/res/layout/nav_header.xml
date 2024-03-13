@@ -36,7 +36,6 @@
             app:layout_constraintLeft_toRightOf="@id/iv_avatar"
             app:layout_constraintTop_toTopOf="@id/iv_avatar"
             app:layout_constraintRight_toRightOf="parent"/>
-        <!--标签-->
         <TextView
             android:id="@+id/tv_id"
             style="@style/TextSmallStyle"
@@ -63,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Expire date：2024-02-12 20:38:31"
             app:layout_constraintLeft_toLeftOf="@id/tv_name"
             app:layout_constraintBottom_toBottomOf="@id/iv_avatar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -96,4 +94,12 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="44dp"/>
+    <TextView
+        android:id="@+id/tv_version_name"
+        style="@style/TextLittleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

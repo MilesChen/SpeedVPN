@@ -5,7 +5,7 @@
  * 当前编译core版本号
  */
  
-#define GIT_VERSION Meta_Alpha_20658f6_240206
+#define GIT_VERSION Meta_Alpha_20658f6_240313
 #define make_Str(x) #x 
 #define make_String(x) make_Str(x)
 

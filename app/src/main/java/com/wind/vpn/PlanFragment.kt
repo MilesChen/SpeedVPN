@@ -135,7 +135,7 @@ class PlanFragment(private val plan: WindPlan, val conf: CommConfig) : Fragment(
                             goPayCheckActivity(
                                 it,
                                 orderResult.data.toJson(),
-                                conf.currency_symbol,
+                                conf.currency_symbol!!,
                                 payMethods.data!!
                             )
                         }

@@ -159,7 +159,6 @@
 
     <style name="WindTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-
     </style>
 
     <style name="AppThemeLight" parent="AppThemeLightBase">

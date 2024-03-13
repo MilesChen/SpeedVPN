@@ -78,6 +78,8 @@
     <string name="toast_save_suc" translatable="false">Save Success</string>
     <string name="toast_pay_suc" translatable="false">Pay Success</string>
     <string name="toast_open_vpn" translatable="false">Please establish VPN</string>
+    <string name="toast_expired" translatable="false">Experience has expired</string>
+    <string name="toast_plan_expired" translatable="false">Package has expired</string>
     <string name="charge_bottom_tips_prefix" translatable="false">If you have any questions during the payment process, please contact us directly</string>
     <string name="charge_bottom_tips_suffix" translatable="false">Online Service</string>
     <string name="month_price" translatable="false">1 Month</string>
@@ -97,4 +99,5 @@
     <string name="discount_amount" translatable="false">Discount Amount</string>
     <string name="network_suffix" translatable="false">automatic</string>
     <string name="network_prefix" translatable="false">Network:</string>
+    <string name="current_version" translatable="false">Version:</string>
 </resources>
