@@ -34,14 +34,14 @@ subprojects {
     extensions.configure<BaseExtension> {
         defaultConfig {
             if (isApp) {
-                applicationId = "com.github.metacubex.clash"
+                applicationId = "com.networkok.wind"
             }
 
             minSdk = 21
             targetSdk = 31
 
-            versionName = "2.10.0"
-            versionCode = 210000
+            versionName = "1.0.0"
+            versionCode = 240313
 
             resValue("string", "release_name", "v$versionName")
             resValue("integer", "release_code", "$versionCode")

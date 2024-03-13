@@ -4,6 +4,7 @@ import android.content.Context
 import com.github.kr328.clash.common.store.Store
 import com.github.kr328.clash.common.store.asStoreProvider
 import com.github.kr328.clash.core.model.ProxySort
+import com.github.kr328.clash.core.model.TunnelState
 import com.github.kr328.clash.design.model.AppInfoSort
 import com.github.kr328.clash.design.model.DarkMode
 
@@ -60,6 +61,13 @@ class UiStore(context: Context) {
     var accessControlSystemApp: Boolean by store.boolean(
         key = "access_control_system_app",
         defaultValue = false,
+    )
+
+    var tunnelMode: TunnelState.Mode by store.enum(key = "tunnel_mode", defaultValue = TunnelState.Mode.Global, TunnelState.Mode.values())
+
+    var proxyLastName: String by store.string(
+        key = "proxy_last_name",
+        defaultValue = ""
     )
 
     companion object {

@@ -18,6 +18,9 @@ class Broadcasts(private val context: Application) {
         fun onProfileUpdateCompleted(uuid: UUID?)
         fun onProfileUpdateFailed(uuid: UUID?, reason: String?)
         fun onProfileLoaded()
+        fun onLogin()
+
+        fun onUserInfo()
     }
 
     var clashRunning: Boolean = false

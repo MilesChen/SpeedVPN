@@ -17,4 +17,8 @@ interface IProfileManager {
     suspend fun queryAll(): List<Profile>
     suspend fun queryActive(): Profile?
     suspend fun setActive(profile: Profile)
+
+    suspend fun exists(name: String): Boolean
+
+    suspend fun queryUUIDByName(name: String): UUID?
 }

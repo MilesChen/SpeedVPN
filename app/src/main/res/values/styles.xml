@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextTitleStyle">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/color_151515</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextTitleStyle.Home">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/color_151515</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextTitleStyle.UserName">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/color_151515</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextNormalStyle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/color_151515</item>
+    </style>
+    <style name="TextNormalStyle.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextNormalStyle.Input">
+        <item name="android:textCursorDrawable">@drawable/shaper_cursor_color</item>
+        <item name="android:textColorHint">#B5B6B7</item>
+    </style>
+
+    <style name="TextNormalStyle.Bold.Big">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextNormalStyle.Bold.Blue">
+        <item name="android:textColor">@color/color_198CFF</item>
+    </style>
+    <style name="TextNormalStyle.Bold.Big.Blue">
+        <item name="android:textColor">@color/color_198CFF</item>
+    </style>
+    <style name="TextSmallStyle">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/color_151515</item>
+    </style>
+
+    <style name="TextSmallStyle.Gray">
+        <item name="android:textColor">@color/color_9c9c9c</item>
+    </style>
+
+    <style name="TextSmallStyle.Blue">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/color_198CFF</item>
+    </style>
+
+    <style name="TextBigBlue">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/color_198CFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextLittleStyle">
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/color_9c9c9c</item>
+    </style>
+
+    <style name="TextLittleStyle.black">
+        <item name="android:textColor">@color/color_151515</item>
+    </style>
+    <style name="TextLittleStyle.Blue">
+        <item name="android:textColor">@color/color_198CFF</item>
+    </style>
+
+    <!-- 圆形图片 -->
+    <style name="circleImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="MenuTextStyle">
+        <item name="android:textSize">16dp</item>
+    </style>
+    <style name="BlueBtnStyle">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_blue_btn_bg</item>
+    </style>
+    <style name="BlueBtnStyle.Light">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/color_0052FF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shaper_btn_blue_light_enable</item>
+    </style>
+
+</resources>

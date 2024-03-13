@@ -45,6 +45,10 @@ abstract class Design<R>(val context: Context) :
         }
     }
 
+    open fun initDesign() {
+
+    }
+
     init {
         when (context) {
             is AppCompatActivity -> {

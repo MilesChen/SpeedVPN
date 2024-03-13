@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="99dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="12dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:background="@drawable/shaper_plan_item_bg_blue">
+
+    <TextView
+        android:id="@+id/tv_plan_peroid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#151515"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:text="1 Month"/>
+
+    <TextView
+        android:id="@+id/tv_plan_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="#198CFF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:text="USD 9.99"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="#ff8c00"
+        android:textSize="10dp"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

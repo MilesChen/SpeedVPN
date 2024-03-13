@@ -12,7 +12,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
@@ -20,16 +20,16 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:banner="@mipmap/ic_banner"
         android:fullBackupContent="@xml/full_backup_content"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/application_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/BootstrapTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:targetApi="N">
+        tools:targetApi="N"
+        android:banner="@drawable/ic_launcher">
         <meta-data
             android:name="releaseName"
             android:value="@string/release_name" />
@@ -38,22 +38,35 @@
             android:value="@integer/release_code" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.wind.vpn.activity.HomeAct"
             android:configChanges="uiMode"
             android:exported="true"
-            android:label="@string/launch_name"
-            android:launchMode="singleTop">
+            android:label="@string/launch_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
         </activity>
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:configChanges="uiMode"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/launch_name">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".ExternalControlActivity"
             android:exported="true"
@@ -82,6 +95,53 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.wind.vpn.activity.UserCenterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.ChangeCountryActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.MemberFreeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.MessageDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.OnlineServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.PlayingActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.RecommendActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.SafeLossActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.UploadLogActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.FillFriendIdActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.wind.vpn.activity.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.RechargeActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.PayCheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wind.vpn.activity.BrowserActivity"
+            android:exported="false" />
         <activity
             android:name=".ApkBrokenActivity"
             android:configChanges="uiMode"

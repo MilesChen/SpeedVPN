@@ -1,0 +1,103 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
+    <string name="home_title" translatable="false">Touch Of The Wind VPN</string>
+    <string name="every_play" translatable="false">Everyone is playing</string>
+    <string name="renewal" translatable="false">Renewal</string>
+    <string name="copy" translatable="false">Click to copy</string>
+    <string name="renew_membership" translatable="false">Renew membership</string>
+    <string name="friends_recommend" translatable="false">Friend’s recommendation id</string>
+    <string name="menu_1" translatable="false">Change country and region</string>
+    <string name="menu_2" translatable="false">Recommended and rewarded</string>
+    <string name="menu_3" translatable="false">Get membership for free</string>
+    <string name="menu_4" translatable="false">Everyone is playing</string>
+    <string name="menu_5" translatable="false">Message Center</string>
+    <string name="menu_6" translatable="false">Software loss prevention</string>
+    <string name="menu_7" translatable="false">Online service</string>
+    <string name="menu_8" translatable="false">Upload log</string>
+    <string name="act_title_user_center" translatable="false">User Center</string>
+    <string name="act_title_change_country" translatable="false">Change country and region</string>
+    <string name="act_title_recommend" translatable="false">Recommend friends</string>
+    <string name="act_title_membership" translatable="false">Get membership for free</string>
+    <string name="act_title_safe_loss" translatable="false">Software loss prevention</string>
+    <string name="act_title_register" translatable="false">Register an account</string>
+    <string name="act_title_login" translatable="false">Login account</string>
+    <string name="act_title_member_select" translatable="false">Select member</string>
+    <string name="act_title_pay_order" translatable="false">Pay order</string>
+    <string name="act_title_message_center" translatable="false">Message Center</string>
+    <string name="user_center_level" translatable="false">Membership level</string>
+    <string name="user_center_remain" translatable="false">Remaining time</string>
+    <string name="user_center_device" translatable="false">Native device</string>
+    <string name="user_center_balance" translatable="false">Account Balance</string>
+    <string name="recommend_detail_top" translatable="false">Recommend friends and\nget permanent membership</string>
+    <string name="recommend_detail_small" translatable="false">After the friend installs successfully, fill in your ID and the recommendation will be considered successful;</string>
+    <string name="memberfree_detail_top" translatable="false">Get membership for free</string>
+    <string name="memberfree_detail_small" translatable="false">Come order a little every day and get free membership as you like!</string>
+    <string name="safeloss_detail_top" translatable="false">Save the QR code and\nnever lose contact</string>
+    <string name="safeloss_detail_small" translatable="false">Get rid of the blockade forever and have Internet freedom forever. It is recommended that you save the VPN anti-loss QR code to the photo album!</string>
+    <string name="fillid_detail_top" translatable="false">Fill in your friend’s\nrecommendation ID</string>
+    <string name="fillid_detail_small" translatable="false">Fill in your friend’s recommendation ID to get additional members for free. Each person only has one chance!</string>
+    <string name="register_detail_small" translatable="false">Display of account prompt information when registering an account</string>
+    <string name="login_detail_small" translatable="false">After successful login, your free trial period will be cleared. Other membership hours will be transferred to the account and shared with other devices in the account.</string>
+    <string name="share_link" translatable="false">Share via link</string>
+    <string name="share_qrcode" translatable="false">Share via QR code</string>
+    <string name="reward_title_left" translatable="false">Successfully recommended</string>
+    <string name="reward_title_right" translatable="false">Accumulated gains</string>
+    <string name="free_title_left" translatable="false">Number of recipients today</string>
+    <string name="free_title_right" translatable="false">Cumulative membership</string>
+    <string name="person" translatable="false">Person</string>
+    <string name="hours" translatable="false">Hours</string>
+    <string name="btn_try_luck" translatable="false">Try Your Luck</string>
+    <string name="btn_save_now" translatable="false">Save Now</string>
+    <string name="btn_register" translatable="false">Register</string>
+    <string name="btn_login" translatable="false">Login</string>
+    <string name="btn_fill_id_summary" translatable="false">This feature will be turned off in 24 hours</string>
+    <string name="btn_fill_id" translatable="false">Get Membership</string>
+    <string name="change_to_register" translatable="false">Register new account</string>
+    <string name="safe_loss_follow" translatable="false">Follow on social media @1234566433</string>
+    <string name="hint_name" translatable="false">Please enter email address</string>
+    <string name="hint_fill_id" translatable="false">Your friend’s recommendation ID</string>
+    <string name="hint_pwd1" translatable="false">Please enter password</string>
+    <string name="hint_pwd2" translatable="false">Please enter password again</string>
+    <string name="cb_agree_prefix" translatable="false">By registering you agree</string>
+    <string name="cb_agree_name" translatable="false">Platform Service Agreement</string>
+    <string name="safe_mode" translatable="false">Safe mode</string>
+    <string name="speed_mode" translatable="false">Extreme speed mode</string>
+    <string name="no_content" translatable="false">no content</string>
+    <string name="account_expired" translatable="false">Account has expired</string>
+    <string name="account_platinum" translatable="false">Platinum Member</string>
+    <string name="account_bronze" translatable="false">Bronze Member</string>
+    <string name="account_days" translatable="false">days expire</string>
+    <string name="account_hours" translatable="false">hours expire</string>
+    <string name="account_minutes" translatable="false">minutes expire</string>
+    <string name="days" translatable="false">Days</string>
+    <string name="minutes" translatable="false">Minutes</string>
+    <string name="account_expire_time" translatable="false">Expire data: %1$s</string>
+    <string name="account_register_login" translatable="false">Log in/Register ></string>
+    <string name="toast_pwd_err" translatable="false">incorrect password</string>
+    <string name="toast_loading" translatable="false">loading...</string>
+    <string name="toast_error" translatable="false">Request Failed</string>
+    <string name="toast_save_suc" translatable="false">Save Success</string>
+    <string name="toast_pay_suc" translatable="false">Pay Success</string>
+    <string name="toast_open_vpn" translatable="false">Please establish VPN</string>
+    <string name="toast_expired" translatable="false">Experience has expired</string>
+    <string name="toast_plan_expired" translatable="false">Package has expired</string>
+    <string name="charge_bottom_tips_prefix" translatable="false">If you have any questions during the payment process, please contact us directly</string>
+    <string name="charge_bottom_tips_suffix" translatable="false">Online Service</string>
+    <string name="month_price" translatable="false">1 Month</string>
+    <string name="quarter_price" translatable="false">3 Months</string>
+    <string name="half_year_price" translatable="false">6 Months</string>
+    <string name="year_price" translatable="false">1 Year</string>
+    <string name="two_year_price" translatable="false">2 Years</string>
+    <string name="three_year_price" translatable="false">3 Years</string>
+    <string name="onetime_price" translatable="false">Onetime</string>
+    <string name="payment" translatable="false">Payment</string>
+    <string name="coupon_hint" translatable="false">Have Coupon?</string>
+    <string name="coupon_btn_verify" translatable="false">Verify</string>
+    <string name="coupon_btn_clear" translatable="false">Clear</string>
+    <string name="coupon_discount" translatable="false">Discount</string>
+    <string name="balance_amount" translatable="false">Balance Amount</string>
+    <string name="total_amount" translatable="false">Total Amount</string>
+    <string name="discount_amount" translatable="false">Discount Amount</string>
+    <string name="network_suffix" translatable="false">automatic</string>
+    <string name="network_prefix" translatable="false">Network:</string>
+    <string name="current_version" translatable="false">Version:</string>
+</resources>

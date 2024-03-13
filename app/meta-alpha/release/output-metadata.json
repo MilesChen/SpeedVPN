@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.networkok.wind.meta",
+  "variantName": "meta-alphaRelease",
+  "elements": [
+    {
+      "type": "UNIVERSAL",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 240313,
+      "versionName": "1.0.0.Meta-Alpha",
+      "outputFile": "cmfa-1.0.0-meta-alpha-universal-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240313,
+      "versionName": "1.0.0.Meta-Alpha",
+      "outputFile": "cmfa-1.0.0-meta-alpha-x86-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240313,
+      "versionName": "1.0.0.Meta-Alpha",
+      "outputFile": "cmfa-1.0.0-meta-alpha-arm64-v8a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240313,
+      "versionName": "1.0.0.Meta-Alpha",
+      "outputFile": "cmfa-1.0.0-meta-alpha-armeabi-v7a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240313,
+      "versionName": "1.0.0.Meta-Alpha",
+      "outputFile": "cmfa-1.0.0-meta-alpha-x86_64-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

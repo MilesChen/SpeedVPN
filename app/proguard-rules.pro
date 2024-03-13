@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 -dontobfuscate
-
+-keep class com.wind.vpn.**{*;}
 -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
     public static void checkNotNull(...);
     public static void checkExpressionValueIsNotNull(...);

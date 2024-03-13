@@ -308,4 +308,12 @@ class ProfileManager(private val context: Context) : IProfileManager,
             ProfileReceiver.scheduleNext(context, imported)
         }
     }
+
+    override suspend fun exists(name: String): Boolean {
+        return ImportedDao().exists(name) || PendingDao().exists(name)
+    }
+
+    override suspend fun queryUUIDByName(name: String): UUID? {
+        return PendingDao().queryUUIDByName(name)?:ImportedDao().queryUUIDByName(name)
+    }
 }
