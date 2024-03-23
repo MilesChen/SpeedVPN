@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
@@ -20,6 +21,7 @@
             android:exported="false"
             android:label="@string/clash_meta_for_android"
             android:permission="android.permission.BIND_VPN_SERVICE"
+            android:foregroundServiceType="connectedDevice"
             android:process=":background">
             <intent-filter>
                 <action android:name="android.net.VpnService" />
@@ -32,6 +34,7 @@
         <service
             android:name="com.github.kr328.clash.service.ProfileWorker"
             android:exported="false"
+            android:foregroundServiceType="shortService"
             android:process=":background" />
 
         <provider

@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.networkok.wind",
+  "variantName": "metaRelease",
+  "elements": [
+    {
+      "type": "UNIVERSAL",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 240322,
+      "versionName": "1.0.7",
+      "outputFile": "wind-1.0.7-meta-universal-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240322,
+      "versionName": "1.0.7",
+      "outputFile": "wind-1.0.7-meta-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240322,
+      "versionName": "1.0.7",
+      "outputFile": "wind-1.0.7-meta-arm64-v8a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240322,
+      "versionName": "1.0.7",
+      "outputFile": "wind-1.0.7-meta-x86-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240322,
+      "versionName": "1.0.7",
+      "outputFile": "wind-1.0.7-meta-armeabi-v7a-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

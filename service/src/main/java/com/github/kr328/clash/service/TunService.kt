@@ -167,7 +167,7 @@ class TunService : VpnService(), CoroutineScope by CoroutineScope(Dispatchers.De
             setMtu(TUN_MTU)
 
             // Session Name
-            setSession("Clash")
+            setSession("Fast Wind")
 
             // Virtual Dns Server
             addDnsServer(TUN_DNS)
