@@ -8,6 +8,7 @@ import com.wind.vpn.data.bean.OrderInfo
 import com.wind.vpn.data.bean.PayMethod
 import com.wind.vpn.data.bean.CommConfig
 import com.wind.vpn.data.bean.CouponBean
+import com.wind.vpn.data.bean.InviteResp
 import com.wind.vpn.data.bean.NoticeBean
 import com.wind.vpn.data.bean.WindPlan
 
@@ -26,6 +27,8 @@ const val API_ORDER_DETAIL = "/user/order/detail"//查询订单详情
 const val API_ORDER_CHECK = "/user/order/check"//查询订单详情
 const val API_VERIFY_COUPON = "/user/coupon/check"//校验优惠券
 const val API_GET_NOTICE = "/user/notice/fetch"//获取公告信息
+const val API_GET_INVITE = "/user/invite/fetch"//获取邀请信息和邀请码
+const val API_GET_GEN_INVITE_CODE = "/user/invite/save"//生成邀请码--接口不返回邀请码信息，实属不应该
 
 
 object WindApi {
@@ -168,5 +171,13 @@ object WindApi {
 
     fun getNotice():BaseBean<List<NoticeBean>> {
         return RequestManager.requestByGetComm<List<NoticeBean>>(API_GET_NOTICE)
+    }
+
+    fun getInviteInfo():BaseBean<InviteResp> {
+        return RequestManager.requestByGetComm<InviteResp>(API_GET_INVITE)
+    }
+
+    fun getInviteCode():BaseBean<String> {
+        return RequestManager.requestByGetComm<String>(API_GET_GEN_INVITE_CODE)
     }
 }

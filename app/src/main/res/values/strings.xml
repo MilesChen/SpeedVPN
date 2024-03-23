@@ -13,6 +13,7 @@
     <string name="menu_6" translatable="false">Software loss prevention</string>
     <string name="menu_7" translatable="false">Online service</string>
     <string name="menu_8" translatable="false">Upload log</string>
+    <string name="menu_9" translatable="false">Network</string>
     <string name="act_title_user_center" translatable="false">User Center</string>
     <string name="act_title_change_country" translatable="false">Change country and region</string>
     <string name="act_title_recommend" translatable="false">Recommend friends</string>
@@ -23,6 +24,11 @@
     <string name="act_title_member_select" translatable="false">Select member</string>
     <string name="act_title_pay_order" translatable="false">Pay order</string>
     <string name="act_title_message_center" translatable="false">Message Center</string>
+    <string name="act_title_network_setting" translatable="false">Network</string>
+    <string name="dialog_title_new_version" translatable="false">"Have New Version"</string>
+    <string name="dialog_message_new_version" translatable="false">"Do you want to upgrade to new version?"</string>
+    <string name="dialog_cancel_new_version" translatable="false">"Next time"</string>
+    <string name="dialog_confirm_new_version" translatable="false">"Confirm"</string>
     <string name="user_center_level" translatable="false">Membership level</string>
     <string name="user_center_remain" translatable="false">Remaining time</string>
     <string name="user_center_device" translatable="false">Native device</string>
@@ -70,7 +76,7 @@
     <string name="account_minutes" translatable="false">minutes expire</string>
     <string name="days" translatable="false">Days</string>
     <string name="minutes" translatable="false">Minutes</string>
-    <string name="account_expire_time" translatable="false">Expire data: %1$s</string>
+    <string name="account_expire_time" translatable="false">Expire date: %1$s</string>
     <string name="account_register_login" translatable="false">Log in/Register ></string>
     <string name="toast_pwd_err" translatable="false">incorrect password</string>
     <string name="toast_loading" translatable="false">loading...</string>
@@ -100,4 +106,8 @@
     <string name="network_suffix" translatable="false">automatic</string>
     <string name="network_prefix" translatable="false">Network:</string>
     <string name="current_version" translatable="false">Version:</string>
+    <string name="vpn_state_closed" translatable="false">Open</string>
+    <string name="vpn_state_connected" translatable="false">Connected</string>
+    <string name="renewal_dialog_content_guest" translatable="false">Free time has expired</string>
+    <string name="renewal_dialog_content_user" translatable="false">Your time has expired</string>
 </resources>

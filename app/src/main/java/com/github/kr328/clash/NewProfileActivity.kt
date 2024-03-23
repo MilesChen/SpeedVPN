@@ -13,6 +13,7 @@ import com.github.kr328.clash.design.NewProfileDesign
 import com.github.kr328.clash.design.model.ProfileProvider
 import com.github.kr328.clash.service.model.Profile
 import com.github.kr328.clash.util.withProfile
+import com.github.kr328.clash.design.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.selects.select

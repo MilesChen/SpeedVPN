@@ -7,6 +7,7 @@ import com.github.kr328.clash.core.Clash
 import com.github.kr328.clash.design.OverrideSettingsDesign
 import com.github.kr328.clash.design.model.AppInfo
 import com.github.kr328.clash.design.util.toAppInfo
+import com.github.kr328.clash.design.R
 import com.github.kr328.clash.service.store.ServiceStore
 import com.github.kr328.clash.util.withClash
 import kotlinx.coroutines.Dispatchers

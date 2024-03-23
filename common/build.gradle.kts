@@ -2,7 +2,9 @@ plugins {
     kotlin("android")
     id("com.android.library")
 }
-
+android {
+    namespace = "com.github.kr328.clash.common"
+}
 dependencies {
     compileOnly(project(":hideapi"))
 

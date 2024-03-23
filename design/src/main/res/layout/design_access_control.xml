@@ -16,13 +16,13 @@
         <include
             android:id="@+id/main_list"
             layout="@layout/common_recycler_list"
-            app:insets="@{self.surface.insets}" />
+            android:paddingTop="42dp" />
 
         <com.github.kr328.clash.design.view.ActivityBarLayout
             android:id="@+id/activity_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@{self.surface.insets.top}">
+            android:paddingTop="42dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.wind.vpn
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import com.github.kr328.clash.common.Global
@@ -20,13 +21,16 @@ import com.wind.vpn.data.WindApi
 import com.wind.vpn.data.account.WindAccount
 import com.wind.vpn.data.account.WindProfile
 import com.wind.vpn.data.account.WindSubscribe
+import com.wind.vpn.upgrade.UpgradeManager
 import com.wind.vpn.util.calculateMd5
+import im.crisp.client.Crisp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
+    const val CLIENT_TYPE = 1
     private const val TAG = "WindGlobal"
     var email: String = ""
     var token: String = ""
@@ -38,6 +42,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
     var manufacturer: String = Build.MANUFACTURER
     var product: String = Build.PRODUCT
     var androidid: String = Settings.System.getString(Global.application.contentResolver, Settings.Secure.ANDROID_ID)
+    val upgradeManager = UpgradeManager()
     var store = AppStore(Global.application)
     private var account_ = store.account.toBean<WindAccount>() ?: WindAccount()
     private var userInfo_ = store.userInfo.toBean<WindProfile>() ?: WindProfile()
@@ -74,6 +79,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
         if (context.isMainProgress()) {
             DomainManager.init()
             CommConfMgr.init()
+            android.util.Log.d("chenchao", "application is ${Global.application}")
         }
         var info = context.packageManager.getPackageInfo(context.packageName, 0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -103,11 +109,13 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                             val name = subIt.calculateMd5()
                             var existsUUID = queryUUIDByName(name)
                             if (existsUUID == null) {
-                                android.util.Log.d(TAG, "uuid not exists create")
+                                val uri = Uri.parse(it.subscribe_url!!)
+                                val url = uri.buildUpon().appendQueryParameter("flag", "meta").build().toString()
+                                android.util.Log.d(TAG, "uuid not exists create $url")
                                 existsUUID = create(
                                     Profile.Type.Url,
                                     name,
-                                    it.subscribe_url!!
+                                    url
                                 )
                             }
                             val profile = queryByUUID(existsUUID)

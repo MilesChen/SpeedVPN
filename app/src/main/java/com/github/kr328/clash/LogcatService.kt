@@ -24,6 +24,7 @@ import com.github.kr328.clash.service.remote.ILogObserver
 import com.github.kr328.clash.service.remote.IRemoteService
 import com.github.kr328.clash.service.remote.unwrap
 import com.github.kr328.clash.util.logsDir
+import com.github.kr328.clash.design.R
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import java.io.IOException
@@ -137,14 +138,14 @@ class LogcatService : Service(), CoroutineScope by CoroutineScope(Dispatchers.De
     private fun showNotification() {
         val notification = NotificationCompat
             .Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_logo_service)
+            .setSmallIcon(com.github.kr328.clash.service.R.drawable.ic_logo_service)
             .setColor(getColorCompat(R.color.color_clash_light))
             .setContentTitle(getString(R.string.clash_logcat))
             .setContentText(getString(R.string.running))
             .setContentIntent(
                 PendingIntent.getActivity(
                     this,
-                    R.id.nf_logcat_status,
+                    com.github.kr328.clash.R.id.nf_logcat_status,
                     LogcatActivity::class.intent
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP),
                     pendingIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT)
@@ -152,7 +153,7 @@ class LogcatService : Service(), CoroutineScope by CoroutineScope(Dispatchers.De
             )
             .build()
 
-        startForeground(R.id.nf_logcat_status, notification)
+        startForeground(com.github.kr328.clash.R.id.nf_logcat_status, notification)
     }
 
     companion object {

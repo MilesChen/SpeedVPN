@@ -9,11 +9,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Process
+import androidx.core.content.ContextCompat
 import com.wind.vpn.activity.BrowserActivity
 import com.wind.vpn.activity.KEY_TARGET_URL
 import com.wind.vpn.util.goTargetClass
+import im.crisp.client.ChatActivity
 import java.io.File
 import java.util.zip.ZipFile
+
 
 object ApplicationObserver {
     private val _createdActivities: MutableSet<Activity> = mutableSetOf()
@@ -106,11 +109,12 @@ fun Context.isMainProgress():Boolean {
 }
 
 fun Context.startLoadUrl(url:String) {
+//    openInnerBrowser(url)
     val intent = Intent(Intent.ACTION_VIEW)
     intent.addCategory(Intent.CATEGORY_BROWSABLE)
     val url = Uri.parse(url)
     intent.setData(url)
-    intent.setPackage("com.android.browser")
+//    intent.setPackage("com.android.browser")
     startActivity(intent);
 }
 
@@ -118,4 +122,9 @@ fun Context.openInnerBrowser(url:String) {
     val bundle = Bundle()
     bundle.putString(KEY_TARGET_URL, url)
     goTargetClass(this, BrowserActivity::class.java, bundle)
+}
+
+fun Context.openServiceOnline() {
+    val crispIntent = Intent(this, ChatActivity::class.java)
+    startActivity(crispIntent)
 }

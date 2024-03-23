@@ -19,6 +19,7 @@ import com.github.kr328.clash.util.withProfile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import com.github.kr328.clash.design.R
 import java.util.*
 
 class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {

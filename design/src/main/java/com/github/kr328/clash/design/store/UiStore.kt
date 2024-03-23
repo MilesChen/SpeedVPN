@@ -63,12 +63,13 @@ class UiStore(context: Context) {
         defaultValue = false,
     )
 
-    var tunnelMode: TunnelState.Mode by store.enum(key = "tunnel_mode", defaultValue = TunnelState.Mode.Global, TunnelState.Mode.values())
+    var tunnelMode: TunnelState.Mode by store.enum(key = "tunnel_mode", defaultValue = TunnelState.Mode.Rule, TunnelState.Mode.values())
 
     var proxyLastName: String by store.string(
         key = "proxy_last_name",
         defaultValue = ""
     )
+    var lastPromptTime by store.long(key = "last_new_version_time", defaultValue = 0)
 
     companion object {
         private const val PREFERENCE_NAME = "ui"

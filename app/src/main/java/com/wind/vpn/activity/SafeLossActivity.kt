@@ -13,8 +13,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.github.kr328.clash.R
 import com.github.kr328.clash.databinding.ActSafeLossBinding
+import com.wind.vpn.data.DomainManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,6 +39,7 @@ class SafeLossActivity:BaseActivity() {
         binding.btnSaveQrcode.setOnClickListener{
             saveImage()
         }
+        Glide.with(this).load(DomainManager.ossBean.qrCodeUrl).error(R.drawable.icon_qrcode_net).placeholder(R.drawable.icon_qrcode_net).into(binding.ivQrcodeTop)
     }
 
     private fun saveImage() {
@@ -55,18 +62,51 @@ class SafeLossActivity:BaseActivity() {
     }
 
     private fun saveBitmap() {
+        saveBitmapAsync()
+    }
+
+    private fun saveBitmapAsync() {
+        Glide.with(this).asBitmap().load(DomainManager.ossBean.qrCodeUrl).addListener(object:RequestListener<Bitmap>{
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Bitmap>,
+                isFirstResource: Boolean
+            ): Boolean {
+                val ips = assets.open("icon_qrcode_net.png")
+                val bitmap = BitmapFactory.decodeStream(ips)
+                trySave(bitmap)
+                return true
+            }
+
+            override fun onResourceReady(
+                resource: Bitmap,
+                model: Any,
+                target: Target<Bitmap>?,
+                dataSource: DataSource,
+                isFirstResource: Boolean
+            ): Boolean {
+                trySave(resource)
+                return true
+
+            }
+
+        }).preload()
+
+    }
+
+    private fun trySave(bitmap: Bitmap) {
         launch(Dispatchers.IO) {
-            val result = saveBitmapAsync()
+            val result = saveBitmap(bitmap)
             withContext(Dispatchers.Main) {
                 showToast(if (result) getString(R.string.toast_save_suc) else getString(R.string.toast_error))
             }
         }
+
     }
 
-    private fun saveBitmapAsync():Boolean {
+    private fun saveBitmap(bitmap: Bitmap): Boolean {
         try {
-            val ips = assets.open("icon_qrcode_net.png")
-            val bitmap = BitmapFactory.decodeStream(ips)
             //获取要保存的图片的位图
             //创建一个保存的Uri
             val values = ContentValues()
@@ -82,7 +122,6 @@ class SafeLossActivity:BaseActivity() {
             val saveUri =
                 contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             if (TextUtils.isEmpty(saveUri.toString())) {
-                Toast.makeText(this, "保存失败！", Toast.LENGTH_SHORT).show()
                 return false
             }
             val outputStream = contentResolver.openOutputStream(saveUri!!)
@@ -90,7 +129,7 @@ class SafeLossActivity:BaseActivity() {
             //第一个参数：格式JPEG 是可以压缩的一个格式 PNG 是一个无损的格式
             //第二个参数：保留原图像90%的品质，压缩10% 这里压缩的是存储大小
             //第三个参数：具体的输出流
-            return bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            return bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream!!)
         } catch (e: Exception) {
             e.printStackTrace()
         }

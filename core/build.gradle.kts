@@ -11,6 +11,10 @@ plugins {
     id("golang-android")
 }
 
+android {
+    namespace = "com.github.kr328.clash.core"
+}
+
 val geoipDatabaseUrl =
     "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb"
 val geoipInvalidate = Duration.ofDays(7)!!

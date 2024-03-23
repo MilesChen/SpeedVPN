@@ -11,8 +11,8 @@ import com.github.kr328.clash.core.model.ProxyGroup
 class CountryHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val title: TextView = view.findViewById(R.id.tv_country_name)
     private val checkBox: CheckBox = view.findViewById(R.id.cb_country)
-    fun onBind(group: ProxyGroup, proxy: Proxy) {
-        checkBox.isChecked = group.now == proxy.name
+    fun onBind(selectedName:String, proxy: Proxy) {
+        checkBox.isChecked = selectedName == proxy.name
         title.text = proxy.title
     }
 

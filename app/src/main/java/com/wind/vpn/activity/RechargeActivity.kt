@@ -1,23 +1,32 @@
 package com.wind.vpn.activity
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.util.Log
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.github.kr328.clash.R
 import com.github.kr328.clash.databinding.ActMemberSelectBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.wind.vpn.PlanFragment
 import com.wind.vpn.bean.BaseBean
 import com.wind.vpn.data.CommConfMgr
-import com.wind.vpn.data.DomainManager
 import com.wind.vpn.data.WindApi
 import com.wind.vpn.data.bean.CommConfig
 import com.wind.vpn.data.bean.WindPlan
 import com.wind.vpn.util.buildSupperLinkSpan
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.concurrent.thread
+
 
 class RechargeActivity:BaseActivity() {
     private lateinit var binding: ActMemberSelectBinding
@@ -40,8 +49,39 @@ class RechargeActivity:BaseActivity() {
                 getString(
                     R.string.charge_bottom_tips_suffix
                 )
-            }", getString(R.string.charge_bottom_tips_suffix), DomainManager.ssoBean.TelegramGroup, true
+            }", getString(R.string.charge_bottom_tips_suffix), "crisp://", true
         )
+        binding.tabBarPlan.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                launch(Dispatchers.IO){
+                    delay(100)
+                    withContext(Dispatchers.Main) {
+                        val tabText = (tab!!.view as ViewGroup).getChildAt(1) as TextView
+                        tabText.typeface = Typeface.DEFAULT_BOLD
+                        tabText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
+                        tabText.setTextColor(Color.parseColor("#198CFF"))
+                    }
+                }
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                launch(Dispatchers.IO) {
+                    delay(100)
+                    withContext(Dispatchers.Main) {
+                        val tabText = (tab!!.view as ViewGroup).getChildAt(1) as TextView
+                        tabText.typeface = Typeface.DEFAULT
+                        tabText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12f)
+                        tabText.setTextColor(Color.parseColor("#9C9C9C"))
+                    }
+                }
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
     }
 
     private fun fillData() {

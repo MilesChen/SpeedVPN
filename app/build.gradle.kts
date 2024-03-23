@@ -7,7 +7,9 @@ plugins {
     kotlin("kapt")
     id("com.android.application")
 }
-
+android {
+    namespace = "com.github.kr328.clash"
+}
 dependencies {
     compileOnly(project(":hideapi"))
 
@@ -24,6 +26,11 @@ dependencies {
     implementation(libs.androidx.coordinator)
     implementation(libs.androidx.recyclerview)
     implementation(libs.google.material)
+    implementation ("im.crisp:crisp-sdk:2.0.0beta1")
+    implementation ("androidx.multidex:multidex:2.0.1")
+    implementation ("com.android.support:multidex:1.0.3")
+//    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+//    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 }
 
 tasks.getByName("clean", type = Delete::class) {

@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.github.kr328.clash.service">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -12,12 +11,12 @@
 
     <application>
         <service
-            android:name=".ClashService"
+            android:name="com.github.kr328.clash.service.ClashService"
             android:exported="false"
             android:label="@string/clash_meta_for_android"
             android:process=":background" />
         <service
-            android:name=".TunService"
+            android:name="com.github.kr328.clash.service.TunService"
             android:exported="false"
             android:label="@string/clash_meta_for_android"
             android:permission="android.permission.BIND_VPN_SERVICE"
@@ -27,16 +26,16 @@
             </intent-filter>
         </service>
         <service
-            android:name=".RemoteService"
+            android:name="com.github.kr328.clash.service.RemoteService"
             android:exported="false"
             android:process=":background" />
         <service
-            android:name=".ProfileWorker"
+            android:name="com.github.kr328.clash.service.ProfileWorker"
             android:exported="false"
             android:process=":background" />
 
         <provider
-            android:name=".FilesProvider"
+            android:name="com.github.kr328.clash.service.FilesProvider"
             android:authorities="${applicationId}.files"
             android:exported="true"
             android:grantUriPermissions="true"
@@ -47,18 +46,18 @@
             </intent-filter>
         </provider>
         <provider
-            android:name=".StatusProvider"
+            android:name="com.github.kr328.clash.service.StatusProvider"
             android:authorities="${applicationId}.status"
             android:exported="false"
             android:process=":background" />
         <provider
-            android:name=".PreferenceProvider"
+            android:name="com.github.kr328.clash.service.PreferenceProvider"
             android:authorities="${applicationId}.settings"
             android:exported="false"
             android:process=":background" />
 
         <receiver
-            android:name=".ProfileReceiver"
+            android:name="com.github.kr328.clash.service.ProfileReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="${applicationId}.permission.RECEIVE_BROADCASTS"

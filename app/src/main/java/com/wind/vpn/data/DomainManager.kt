@@ -1,11 +1,16 @@
 package com.wind.vpn.data
 
+import android.content.Intent
+import android.util.Log
 import com.github.kr328.clash.common.Global
+import com.github.kr328.clash.common.constants.Intents
+import com.github.kr328.clash.service.util.sendBroadcastSelf
 import com.github.kr328.clash.store.AppStore
 import com.google.gson.Gson
+import com.wind.vpn.WindGlobal
 import com.wind.vpn.bean.BaseBean
 import com.wind.vpn.bean.toBean
-import com.wind.vpn.data.bean.SSOBean
+import com.wind.vpn.data.bean.OSSJson
 import com.wind.vpn.toJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,40 +18,67 @@ import kotlinx.coroutines.launch
 
 object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
     private const val api_version = "/api/v1"
-    private val sso_list = arrayOf(
-        "https://1apnortheast12grpc.meetfast.xyz/3m.json",
-        "https://1cacentral11grcp.meetfast.xyz/3m.json"
+    private var sso_list = mutableListOf<String>(
+        "https://metaconcet.com/windfast.json",
+        "https://f123.ink/windfast.json",
+        "https://fast2.ink/windfast.json",
+        "https://fwind.ink/windfast.json",
+        "https://fwind.xyz/windfast.json"
     )
     private val store = AppStore(Global.application)
-    private var lastValidHost_: String = store.lastHost;
+    private var lastValidHost_: String = store.lastHost
     private const val TAG = "DomainManager"
     private const val defaultSSOJson: String =
-        "{\"RemoteHosts\":[\"https://justsososo.site\",\"\"],\"RemoteType\":0,\"HomePage\":\"https://justsososo.site\",\"SupportApi\":\"\",\"TelegramGroup\":\"https://t.me/mao3vpn\",\"BuiltInProxy\":\"\"}"
-    var ssoBean: SSOBean =
-        store.lastSSO.toBean<SSOBean>() ?: (defaultSSOJson.toBean<SSOBean>() ?: SSOBean())
+        "{\n" +
+                "    \"RemoteHosts\": [\n" +
+                "        \"https://fastmeta.net\"\n" +
+                "    ],\n" +
+                "    \"RemoteJson\": [\n" +
+                "        \"https://metaconcet.com/windfast.json\",\n" +
+                "        \" https://f123.ink/windfast.json\",\n" +
+                "        \"https://fast2.ink/windfast.json\",\n" +
+                "        \"https://fwind.ink/windfast.json\",\n" +
+                "        \"https://fwind.xyz/windfast.json\"\n" +
+                "    ],\n" +
+                "    \"RemoteType\": 0,\n" +
+                "    \"HomePage\": \"https://metaconcet.com\",\n" +
+                "    \"TelegramGroup\": \"https://t.me/mao3vpn\",\n" +
+                "    \"BuiltInProxy\": \"\",\n" +
+                "    \"everyPlayingUrl\": \"https://metaconcet.com/windfast.json/play.htm\",\n" +
+                "    \"qrCodeUrl\": \"https://metaconcet.com/dl/qr/download1.0.5.png\"\n" +
+                "}"
+    var ossBean: OSSJson =
+        store.lastOSS.toBean<OSSJson>() ?: (defaultSSOJson.toBean<OSSJson>() ?: OSSJson())
 
     fun init() {
         launch {
-            loadSSOConfig()
+            loadOSSConfig()
         }
     }
 
-    private fun loadSSOConfig() {
-        for (url in sso_list) {
-            var ssoResult: BaseBean<SSOBean>? =
-                RequestManager.requestByGet<SSOBean>(url) { ex ->
+    private suspend fun loadOSSConfig() {
+        if (ossBean.RemoteJson.isNullOrEmpty()) {
+            ossBean.RemoteJson = sso_list
+        }
+        for (url in ossBean.RemoteJson!!) {
+            var ssoResult: BaseBean<OSSJson>? =
+                RequestManager.requestByGet<OSSJson>(url) { ex ->
                     run {
-//                        var tempSSO = ex.toBean<SSOBean>()
-                        var temp = BaseBean<SSOBean>()
-                        //临时写死
-                        temp.data = ssoBean
+                        var tempSSO = ex.toBean<OSSJson>()
+                        var temp = BaseBean<OSSJson>()
+                        temp.data = tempSSO
                         Gson().toJson(temp)
                     }
                 }
             ssoResult?.let {
-                if (ssoResult.isSuccess && ssoResult.data != null) {
-                    ssoBean = ssoResult.data!!
-                    store.lastSSO = ssoBean.toJson()
+                if (it.isSuccess && it.data != null && it.data!!.isValid()) {
+                    ossBean = it.data!!
+                    store.lastOSS = ossBean.toJson()
+                    Global.application.sendBroadcastSelf(Intent(Intents.ACTION_OSS_UPDATE_SUC))
+                    launch(Dispatchers.IO) {
+                        WindGlobal.upgradeManager.checkVersion()
+                    }
+                    Log.d(TAG, "get oss success! stop loading")
                     return
                 }
             }
@@ -56,7 +88,7 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
 
     var validHost: String
-        get() = if (lastValidHost_.isNullOrEmpty()) ssoBean.RemoteHosts[0] else lastValidHost_
+        get() = if (lastValidHost_.isNullOrEmpty()) ossBean.RemoteHosts?.get(0)!! else lastValidHost_
         set(value) {
             if (!value.isNullOrEmpty()) {
                 lastValidHost_ = value
@@ -77,8 +109,8 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
     fun getValidHost(index: Int): String? {
         if (index < 0) {
             return validHost
-        } else if (index < ssoBean.RemoteHosts.size) {
-            return ssoBean.RemoteHosts[index]
+        } else if (index < ossBean.RemoteHosts!!.size) {
+            return ossBean.RemoteHosts?.get(index)
         }
         return null;
     }

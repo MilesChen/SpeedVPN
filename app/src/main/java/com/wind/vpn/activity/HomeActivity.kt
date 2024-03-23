@@ -8,7 +8,6 @@ import com.github.kr328.clash.LogsActivity
 import com.github.kr328.clash.ProfilesActivity
 import com.github.kr328.clash.ProvidersActivity
 import com.github.kr328.clash.ProxyActivity
-import com.github.kr328.clash.R
 import com.github.kr328.clash.SettingsActivity
 import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.common.util.ticker
@@ -18,6 +17,7 @@ import com.github.kr328.clash.util.startClashService
 import com.github.kr328.clash.util.stopClashService
 import com.github.kr328.clash.util.withClash
 import com.github.kr328.clash.util.withProfile
+import com.github.kr328.clash.design.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.selects.select

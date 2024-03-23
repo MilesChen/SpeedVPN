@@ -26,6 +26,8 @@ object Intents {
     val ACTION_LOGIN_SUCCESS = "$packageName.intent.action.LOGIN_SUCCESS"
     val ACTION_LOGOUT = "$packageName.intent.action.LOGOUT"
     val ACTION_USER_LOADED = "$packageName.intent.action.USER_LOADED"
+    val ACTION_HAS_NEW_VERSION = "$packageName.intent.action.NEW_VERSION"
+    val ACTION_OSS_UPDATE_SUC = "$packageName.intent.action.OSS_UPDATE_SUC"
 
     const val EXTRA_STOP_REASON = "stop_reason"
     const val EXTRA_UUID = "uuid"

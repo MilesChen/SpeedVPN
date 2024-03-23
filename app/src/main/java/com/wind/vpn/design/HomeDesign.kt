@@ -13,11 +13,14 @@ import com.github.kr328.clash.common.Global
 import com.github.kr328.clash.core.model.ProxySort
 import com.github.kr328.clash.databinding.DesignHomeBinding
 import com.github.kr328.clash.design.MainDesign
+import com.github.kr328.clash.design.model.ProxyState
 import com.github.kr328.clash.design.store.UiStore
 import com.github.kr328.clash.design.util.layoutInflater
 import com.github.kr328.clash.design.util.root
+import com.github.kr328.clash.util.startLoadUrl
 import com.github.kr328.clash.util.withClash
 import com.wind.vpn.WindGlobal
+import com.wind.vpn.data.DomainManager
 import com.wind.vpn.util.dp2px
 import com.wind.vpn.widget.TopBar
 import kotlinx.coroutines.Dispatchers
@@ -72,6 +75,12 @@ class HomeDesign(context: Context) : WindDesign<HomeDesign.Request>(context) {
             params.leftMargin = i * uniOffset
             binding.icons.addView(icon, params)
         }
+        binding.noticeView.setOnClickListener {
+            val playingUrl = DomainManager.ossBean.everyPlayingUrl?:DomainManager.ossBean.HomePage?:null
+            playingUrl?.let {
+                context.startLoadUrl(playingUrl)
+            }
+        }
     }
 
     private fun setRemainTime(expireTime: Long) {
@@ -111,6 +120,19 @@ class HomeDesign(context: Context) : WindDesign<HomeDesign.Request>(context) {
                         val selectedProxy = queryProxyGroup(names[0], ProxySort.Default)
                         suffix = selectedProxy.now
                         uiStore.proxyLastName = suffix
+                        if (!selectedProxy.proxies.isNullOrEmpty()) {
+                            for (proxy in selectedProxy.proxies) {
+                                if (proxy.name == selectedProxy.now && proxy.type.group) {
+                                    val target = queryProxyGroup(proxy.name, ProxySort.Default)
+                                    target?.let {
+                                        suffix = "$suffix-${target.now}"
+                                        withContext(Dispatchers.Main) {
+                                            binding.tvConnectInfo.text = "${context.getString(R.string.network_prefix)}$suffix"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -131,7 +153,6 @@ class HomeDesign(context: Context) : WindDesign<HomeDesign.Request>(context) {
 
     fun request(request: Request) {
         val  result = requests.trySend(request)
-        Log.d("chenchao", "result of request $result")
     }
 
 

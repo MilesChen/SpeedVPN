@@ -8,6 +8,8 @@ import com.wind.vpn.bean.ERROR
 import com.wind.vpn.bean.NET_ERR
 import com.wind.vpn.bean.SUCCESS
 import com.wind.vpn.bean.toRespBean
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.FormBody
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -18,11 +20,14 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
 
 object RequestManager {
     const val TAG = "RequestManager"
     val commonParams = HashMap<String, Any?>()
     val client = OkHttpClient()
+    val downloadClient by lazy { OkHttpClient() }
 
     inline fun <reified R> requestByGetComm(
         api: String,
@@ -42,7 +47,7 @@ object RequestManager {
         while (!url.isNullOrEmpty()) {
             var result = requestByGet<R>(url, params, transform)
             result?.let {
-                if (result.httpCode != NET_ERR) {
+                if (result.retCode != NET_ERR && result.httpCode !in 400..499) {
                     DomainManager.validHost = DomainManager.getValidHost(index)!!
                     return result
                 }
@@ -55,7 +60,7 @@ object RequestManager {
 
     inline fun <reified R> requestByGet(
         url: String,
-        params:HashMap<String, Any?> = HashMap(),
+        params: HashMap<String, Any?> = HashMap(),
         transform: (String) -> String = { ex -> ex }
     ): BaseBean<R>? {
         Log.d(TAG, "start do GET request $url")
@@ -107,7 +112,7 @@ object RequestManager {
         while (!url.isNullOrEmpty()) {
             var result = requestByPost<R>(url, params, transform)
             result?.let {
-                if (result.httpCode != NET_ERR) {
+                if (result.retCode != NET_ERR && result.httpCode !in 400..499) {
                     DomainManager.validHost = DomainManager.getValidHost(index)!!
                     return result
                 }
@@ -155,7 +160,7 @@ object RequestManager {
     }
 
     @Synchronized
-    fun refreshCommHeaders():HashMap<String, Any?> {
+    fun refreshCommHeaders(): HashMap<String, Any?> {
         if (commonParams.isEmpty()) {
             commonParams.apply {
                 put("osVer", WindGlobal.osVer)
@@ -180,6 +185,36 @@ object RequestManager {
         return commonParams
     }
 
+    suspend fun startDownload(file: File, targetUrl: String): File? {
+        if (file.exists()) {
+            file.delete()
+        }
+        var newFile: File? = null
+
+        val request = Request.Builder().url(targetUrl).build()
+        try {
+            downloadClient.newCall(request).execute().use {
+                if (it.isSuccessful) {
+                    it.body?.byteStream()?.use { ips ->
+                        FileOutputStream(file).use { os ->
+                            val buffer = ByteArray(1024)
+                            var length = -1
+                            while (ips.read(buffer).also { l -> length = l } != -1) {
+                                os.write(buffer, 0, length)
+                            }
+                            os.flush()
+                        }
+
+                    }
+                    newFile = file
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return newFile
+    }
+
     fun buildFormBody(): FormBody {
         val build = FormBody.Builder()
         for (entry in commonParams) {
@@ -189,6 +224,6 @@ object RequestManager {
     }
 }
 
-fun <R> BaseBean<R>.getErrMsg():String {
+fun <R> BaseBean<R>.getErrMsg(): String {
     return if (message.isNullOrEmpty()) Global.application.getString(com.github.kr328.clash.R.string.toast_error) else message!!
 }

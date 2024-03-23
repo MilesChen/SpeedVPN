@@ -4,7 +4,6 @@ import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
 import java.net.URL
 import java.util.*
-
 buildscript {
     repositories {
         mavenCentral()
@@ -38,10 +37,10 @@ subprojects {
             }
 
             minSdk = 21
-            targetSdk = 31
+            targetSdk = 34
 
-            versionName = "1.0.0"
-            versionCode = 240313
+            versionName = "1.0.5"
+            versionCode = 240319
 
             resValue("string", "release_name", "v$versionName")
             resValue("integer", "release_code", "$versionCode")
@@ -55,7 +54,7 @@ subprojects {
             if (!isApp) {
                 consumerProguardFiles("consumer-rules.pro")
             } else {
-                setProperty("archivesBaseName", "cmfa-$versionName")
+                setProperty("archivesBaseName", "wind-$versionName")
             }
         }
 
@@ -77,24 +76,24 @@ subprojects {
             create("meta-alpha") {
                 isDefault = true
                 dimension = flavorDimensionList[0]
-                versionNameSuffix = ".Meta-Alpha"
+                versionNameSuffix = ".Alpha"
 
                 buildConfigField("boolean", "PREMIUM", "Boolean.parseBoolean(\"false\")")
 
                 if (isApp) {
-                    applicationIdSuffix = ".meta"
+                    applicationIdSuffix = ""
                 }
             }
 
             create("meta") {
 
                 dimension = flavorDimensionList[0]
-                versionNameSuffix = ".Meta"
+                versionNameSuffix = ""
 
                 buildConfigField("boolean", "PREMIUM", "Boolean.parseBoolean(\"false\")")
 
                 if (isApp) {
-                    applicationIdSuffix = ".meta"
+                    applicationIdSuffix = ""
                 }
             }
         }

@@ -128,7 +128,7 @@
     <string name="access_control_packages">Приложения с контролируемым доступом</string>
     <string name="access_control_packages_summary">Настройте доступ для приложения</string>
 
-    <string name="options_unavailable">Настройки недоступны, пока Clash не будет остановлен</string>
+    <string name="options_unavailable">Настройки недоступны, пока Wind не будет остановлен</string>
 
     <string name="general">Основные</string>
     <string name="dns">DNS</string>

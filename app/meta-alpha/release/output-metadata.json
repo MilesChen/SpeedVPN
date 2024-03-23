@@ -4,29 +4,16 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.networkok.wind.meta",
+  "applicationId": "com.networkok.wind",
   "variantName": "meta-alphaRelease",
   "elements": [
     {
       "type": "UNIVERSAL",
       "filters": [],
       "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta-Alpha",
-      "outputFile": "cmfa-1.0.0-meta-alpha-universal-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta-Alpha",
-      "outputFile": "cmfa-1.0.0-meta-alpha-x86-release.apk"
+      "versionCode": 240317,
+      "versionName": "1.0.4.Alpha",
+      "outputFile": "wind-1.0.4-meta-alpha-universal-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -37,22 +24,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta-Alpha",
-      "outputFile": "cmfa-1.0.0-meta-alpha-arm64-v8a-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "armeabi-v7a"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta-Alpha",
-      "outputFile": "cmfa-1.0.0-meta-alpha-armeabi-v7a-release.apk"
+      "versionCode": 240317,
+      "versionName": "1.0.4.Alpha",
+      "outputFile": "wind-1.0.4-meta-alpha-arm64-v8a-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -63,9 +37,35 @@
         }
       ],
       "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta-Alpha",
-      "outputFile": "cmfa-1.0.0-meta-alpha-x86_64-release.apk"
+      "versionCode": 240317,
+      "versionName": "1.0.4.Alpha",
+      "outputFile": "wind-1.0.4-meta-alpha-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240317,
+      "versionName": "1.0.4.Alpha",
+      "outputFile": "wind-1.0.4-meta-alpha-x86-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240317,
+      "versionName": "1.0.4.Alpha",
+      "outputFile": "wind-1.0.4-meta-alpha-armeabi-v7a-release.apk"
     }
   ],
   "elementType": "File"

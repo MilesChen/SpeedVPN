@@ -13,7 +13,7 @@ class CenterTextView@JvmOverloads constructor(
     attributeSet: AttributeSet? = null,
     @AttrRes defStyleAttr: Int = 0,
 ) : AppCompatTextView(context, attributeSet, defStyleAttr)  {
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
 
         // 当左边Drawable的不为空时
         compoundDrawables[0]?.run {

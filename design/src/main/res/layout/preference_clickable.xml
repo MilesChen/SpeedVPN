@@ -10,6 +10,7 @@
         android:minHeight="@dimen/item_min_height"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/item_padding_vertical"
+        android:paddingLeft="24dp"
         android:paddingEnd="@dimen/item_tailing_margin">
 
         <View

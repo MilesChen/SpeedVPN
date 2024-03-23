@@ -103,7 +103,7 @@
     <string name="access_control_mode">アクセスコントロールモード</string>
     <string name="access_control_packages">アクセスコントロールリスト</string>
     <string name="access_control_packages_summary">アプリプロファイルへのアクセスを許可</string>
-    <string name="options_unavailable">Clash実行時にこのオプションは利用できません</string>
+    <string name="options_unavailable">Wind実行時にこのオプションは利用できません</string>
     <string name="general">一般</string>
     <string name="dns">DNS</string>
     <string name="prefer_h3">Prefer h3</string>

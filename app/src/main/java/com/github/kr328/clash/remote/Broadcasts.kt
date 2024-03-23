@@ -21,6 +21,8 @@ class Broadcasts(private val context: Application) {
         fun onLogin()
 
         fun onUserInfo()
+        fun hasNewVersion()
+        fun ossUpdateSuc()
     }
 
     var clashRunning: Boolean = false
@@ -74,6 +76,26 @@ class Broadcasts(private val context: Application) {
                         it.onProfileLoaded()
                     }
                 }
+                Intents.ACTION_LOGIN_SUCCESS -> {
+                    receivers.forEach{
+                        it.onLogin()
+                    }
+                }
+                Intents.ACTION_USER_LOADED -> {
+                    receivers.forEach{
+                        it.onUserInfo()
+                    }
+                }
+                Intents.ACTION_HAS_NEW_VERSION -> {
+                    receivers.forEach{
+                        it.hasNewVersion()
+                    }
+                }
+                Intents.ACTION_OSS_UPDATE_SUC -> {
+                    receivers.forEach{
+                        it.ossUpdateSuc()
+                    }
+                }
             }
         }
     }
@@ -99,6 +121,10 @@ class Broadcasts(private val context: Application) {
                 addAction(Intents.ACTION_PROFILE_UPDATE_COMPLETED)
                 addAction(Intents.ACTION_PROFILE_UPDATE_FAILED)
                 addAction(Intents.ACTION_PROFILE_LOADED)
+                addAction(Intents.ACTION_LOGIN_SUCCESS)
+                addAction(Intents.ACTION_USER_LOADED)
+                addAction(Intents.ACTION_HAS_NEW_VERSION)
+                addAction(Intents.ACTION_OSS_UPDATE_SUC)
             })
 
             clashRunning = StatusClient(context).currentProfile() != null

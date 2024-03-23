@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shaper_bg_white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:layout_marginLeft="38dp"
+            android:layout_marginRight="38dp">
+            <ImageView
+                android:layout_width="152dp"
+                android:layout_height="110dp"
+                android:src="@drawable/icon_clock" />
+            <TextView
+                android:id="@+id/tv_dialog_content"
+                style="@style/TextNormalStyle"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <com.wind.vpn.widget.CenterTextView
+                android:id="@+id/btn_renewal"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                style="@style/BlueBtnStyle"
+                android:text="@string/renewal" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/ll_dialog_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:padding="5dp"
+            android:src="@drawable/icon_dialog_close" />
+
+    </RelativeLayout>
+</layout>

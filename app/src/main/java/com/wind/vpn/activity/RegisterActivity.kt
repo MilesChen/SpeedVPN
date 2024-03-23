@@ -66,7 +66,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
         cbAgree = findViewById(R.id.cb_agreement)
         cbAgree.setOnCheckedChangeListener{_, _ ->  updateBtn()}
 //        cbAgree.text = "${getString(R.string.cb_agree_prefix)} ${getString(R.string.cb_agree_name)}"
-        cbAgree.buildSupperLinkSpan("${getString(R.string.cb_agree_prefix)} ${getString(R.string.cb_agree_name)}", getString(R.string.cb_agree_name), "https://www.baidu.com")
+        cbAgree.buildSupperLinkSpan("${getString(R.string.cb_agree_prefix)} ${getString(R.string.cb_agree_name)}", getString(R.string.cb_agree_name), "crisp://")
         changeRegister.setOnClickListener {
             updateRegisterState(true)
         }

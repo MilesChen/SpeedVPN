@@ -26,18 +26,21 @@
                 android:id="@+id/top_layout_mode"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#2076CEFF"
+                android:background="@drawable/bg_change_country_blue"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
+
                 <TextView
-                    android:id="@+id/tv_left_safe"
+                    android:id="@+id/tv_right_speed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/safe_mode"
+
+                    android:text="@string/speed_mode"
                     android:textColor="@drawable/selector_text_check_bg"
                     android:textSize="12dp" />
+
                 <Switch
                     android:id="@+id/speed_mode_switch"
                     android:layout_width="wrap_content"
@@ -46,13 +49,14 @@
                     android:background="@drawable/selector_switch_track"
                     android:track="@null"
                     android:thumb="@null"/>
+
                 <TextView
-                    android:id="@+id/tv_right_speed"
+                    android:id="@+id/tv_left_safe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/speed_mode"
+                    android:text="@string/safe_mode"
                     android:textColor="@drawable/selector_text_check_bg"
                     android:textSize="12dp" />
             </RelativeLayout>

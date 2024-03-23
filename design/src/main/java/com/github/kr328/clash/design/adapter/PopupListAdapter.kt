@@ -41,17 +41,12 @@ class PopupListAdapter(
 
         if (position == selected) {
             text.setBackgroundColor(
-                Color.argb(
-                    200,
-                    Color.red(colorPrimary),
-                    Color.green(colorPrimary),
-                    Color.blue(colorPrimary)
-                )
+                Color.parseColor("#60006DEA")
             )
-            text.setTextColor(colorOnPrimary)
+            text.setTextColor(Color.parseColor("#151515"))
         } else {
             text.setBackgroundColor(Color.TRANSPARENT)
-            text.setTextColor(colorControlNormal)
+            text.setTextColor(Color.parseColor("#151515"))
         }
 
         return view

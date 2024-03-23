@@ -73,7 +73,7 @@
     <string name="update">更新</string>
     <string name="url">URL</string>
     <string name="vpn_service_options">VpnService 選項</string>
-    <string name="options_unavailable">選項在 Clash 運行時不可用</string>
+    <string name="options_unavailable">選項在 Wind 運行時不可用</string>
     <string name="search">查找</string>
     <string name="system_apps">系統應用</string>
     <string name="update_time">更新時間</string>

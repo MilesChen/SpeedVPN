@@ -4,16 +4,16 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.networkok.wind.meta",
+  "applicationId": "com.networkok.wind",
   "variantName": "metaRelease",
   "elements": [
     {
       "type": "UNIVERSAL",
       "filters": [],
       "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta",
-      "outputFile": "cmfa-1.0.0-meta-universal-release.apk"
+      "versionCode": 240319,
+      "versionName": "1.0.5",
+      "outputFile": "wind-1.0.5-meta-universal-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -24,35 +24,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta",
-      "outputFile": "cmfa-1.0.0-meta-x86-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "armeabi-v7a"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta",
-      "outputFile": "cmfa-1.0.0-meta-armeabi-v7a-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "arm64-v8a"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta",
-      "outputFile": "cmfa-1.0.0-meta-arm64-v8a-release.apk"
+      "versionCode": 240319,
+      "versionName": "1.0.5",
+      "outputFile": "wind-1.0.5-meta-x86-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -63,9 +37,35 @@
         }
       ],
       "attributes": [],
-      "versionCode": 240313,
-      "versionName": "1.0.0.Meta",
-      "outputFile": "cmfa-1.0.0-meta-x86_64-release.apk"
+      "versionCode": 240319,
+      "versionName": "1.0.5",
+      "outputFile": "wind-1.0.5-meta-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240319,
+      "versionName": "1.0.5",
+      "outputFile": "wind-1.0.5-meta-armeabi-v7a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 240319,
+      "versionName": "1.0.5",
+      "outputFile": "wind-1.0.5-meta-arm64-v8a-release.apk"
     }
   ],
   "elementType": "File"

@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
@@ -46,7 +47,9 @@ abstract class BaseActivity<D : Design<*>> :
         ProfileUpdateCompleted,
         ProfileUpdateFailed,
         LoginSuccess,
-        UserInfoChanged
+        UserInfoChanged,
+        HasNewVersion,
+        OssUpdate,
     }
 
 
@@ -230,11 +233,18 @@ abstract class BaseActivity<D : Design<*>> :
         events.trySend(Event.UserInfoChanged)
     }
 
+    override fun hasNewVersion() {
+        events.trySend(Event.HasNewVersion)
+    }
+
+    override fun ossUpdateSuc() {
+        events.trySend(Event.OssUpdate)
+    }
+
     private fun setWindowStyle() {
         window.decorView
             .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         window.setStatusBarColor(Color.TRANSPARENT);
-        window.setBackgroundDrawable(getDrawable(R.drawable.bg_b))
     }
 
     private var loadingProgressBar: AlertDialog? = null

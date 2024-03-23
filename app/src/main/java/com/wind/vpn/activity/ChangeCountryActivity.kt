@@ -16,6 +16,7 @@ import com.github.kr328.clash.util.withClash
 import com.wind.vpn.adapter.CountryAdapter
 import com.wind.vpn.util.dp2px
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -44,31 +45,25 @@ class ChangeCountryActivity : BaseActivity() {
     }
 
     private fun initData() {
-        binding.speedModeSwitch.isChecked = uiStore.tunnelMode== TunnelState.Mode.Rule
-        binding.tvLeftSafe.isSelected = !binding.speedModeSwitch.isChecked
-        binding.tvRightSpeed.isSelected = binding.speedModeSwitch.isChecked
-//        launch(Dispatchers.IO) {
-//            withClash {
-//                val o = queryOverride(Clash.OverrideSlot.Session)
-//                withContext(Dispatchers.Main) {
-//                    if (o != null && o.mode == TunnelState.Mode.Rule) {
-//                        binding.speedModeSwitch.isChecked = true
-//                    }
-//                }
-//            }
-//        }
+        binding.speedModeSwitch.isChecked = uiStore.tunnelMode== TunnelState.Mode.Global
+        binding.tvLeftSafe.isSelected = binding.speedModeSwitch.isChecked
+        binding.tvRightSpeed.isSelected = !binding.speedModeSwitch.isChecked
         binding.speedModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             run {
-                binding.tvLeftSafe.isSelected = !isChecked
-                binding.tvRightSpeed.isSelected = isChecked
+                binding.tvLeftSafe.isSelected = isChecked
+                binding.tvRightSpeed.isSelected = !isChecked
                 launch(Dispatchers.IO) {
                     withClash {
-//                        val o = queryOverride(Clash.OverrideSlot.Session)
+                        val o = queryOverride(Clash.OverrideSlot.Session)
                         val targetMode =
-                            if (isChecked) TunnelState.Mode.Rule else TunnelState.Mode.Global
-//                        o.mode = targetMode
-//                        patchOverride(Clash.OverrideSlot.Session, o)
+                            if (isChecked) TunnelState.Mode.Global else TunnelState.Mode.Rule
+                        o.mode = targetMode
+                        patchOverride(Clash.OverrideSlot.Session, o)
                         uiStore.tunnelMode = targetMode
+                        delay(1000)
+                        val names = withClash { queryProxyGroupNames(false) }
+                        name = names[0]
+                        patchSelector(name, uiStore.proxyLastName)
                     }
                 }
 
@@ -78,11 +73,12 @@ class ChangeCountryActivity : BaseActivity() {
         launch(Dispatchers.IO) {
             val names = withClash { queryProxyGroupNames(false) }
             name = names[0]
-            val group = withClash { queryProxyGroup(name, ProxySort.Default) }
+            val queryName = if (uiStore.tunnelMode == TunnelState.Mode.Global) names[1] else names[0]
+            val group = withClash { queryProxyGroup(queryName, ProxySort.Default) }
             withContext(Dispatchers.Main) {
                 binding.countryRecycler.layoutManager =
                     LinearLayoutManager(this@ChangeCountryActivity)
-                binding.countryRecycler.addItemDecoration(SpaceItemDecoration(group.proxies.size))
+                binding.countryRecycler.addItemDecoration(SpaceItemDecoration())
                 binding.countryRecycler.adapter = CountryAdapter(group, ::onItemClick)
             }
 
@@ -101,7 +97,7 @@ class ChangeCountryActivity : BaseActivity() {
     }
 }
 
-class SpaceItemDecoration(private val length: Int) : RecyclerView.ItemDecoration() {
+class SpaceItemDecoration() : RecyclerView.ItemDecoration() {
     private val topSize = dp2px(12f)
     private val divider = dp2px(8f)
     private val bottomSize = dp2px(44f)
@@ -115,7 +111,7 @@ class SpaceItemDecoration(private val length: Int) : RecyclerView.ItemDecoration
         if (position == 0) {
             outRect.top = topSize
             outRect.bottom = divider
-        } else if (position == length - 1) {
+        } else if (position == parent.adapter!!.itemCount - 1) {
             outRect.top = 0
             outRect.bottom = bottomSize
         } else {

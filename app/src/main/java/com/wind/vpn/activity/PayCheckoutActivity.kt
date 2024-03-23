@@ -109,7 +109,7 @@ class PayCheckoutActivity : BaseActivity() {
                 getString(
                     R.string.charge_bottom_tips_suffix
                 )
-            }", getString(R.string.charge_bottom_tips_suffix), DomainManager.ssoBean.TelegramGroup, true
+            }", getString(R.string.charge_bottom_tips_suffix), "crisp://", true
         )
     }
 

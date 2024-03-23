@@ -57,6 +57,9 @@ fun PreferenceScreen.clickable(
 
     if (icon != null) {
         impl.icon = context.getDrawableCompat(icon)
+        binding.iconView.visibility = View.VISIBLE
+    } else {
+        binding.iconView.visibility = View.GONE
     }
 
     if (summary != null) {

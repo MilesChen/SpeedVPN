@@ -6,13 +6,20 @@ import android.net.VpnService
 import com.github.kr328.clash.common.compat.startForegroundServiceCompat
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.util.intent
+import com.github.kr328.clash.core.Clash
 import com.github.kr328.clash.design.store.UiStore
 import com.github.kr328.clash.service.ClashService
 import com.github.kr328.clash.service.TunService
 import com.github.kr328.clash.service.util.sendBroadcastSelf
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 fun Context.startClashService(): Intent? {
-    val startTun = UiStore(this).enableVpn
+    val uiStore = UiStore(this)
+    val startTun = uiStore.enableVpn
+    val tunnel = uiStore.tunnelMode
 
     if (startTun) {
         val vpnRequest = VpnService.prepare(this)
@@ -23,8 +30,21 @@ fun Context.startClashService(): Intent? {
     } else {
         startForegroundServiceCompat(ClashService::class.intent)
     }
+    CoroutineScope(Dispatchers.IO).launch {
+        withClash {
+            delay(200)
+            val mode = queryOverride(Clash.OverrideSlot.Session)
+            mode.mode = tunnel
+            patchOverride(Clash.OverrideSlot.Session, mode)
+            val names = withClash { queryProxyGroupNames(false) }
+            if (!names.isNullOrEmpty()&& !uiStore.proxyLastName.isNullOrEmpty()){
+                patchSelector(names[0], uiStore.proxyLastName)
+            }
+        }
+    }
 
-    return null
+
+        return null
 }
 
 fun Context.stopClashService() {

@@ -1,5 +1,6 @@
 package com.github.kr328.clash
 
+import android.util.Log
 import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.core.Clash
 import com.github.kr328.clash.core.model.Proxy
@@ -69,9 +70,7 @@ class ProxyActivity : BaseActivity<ProxyDesign>() {
                                     }
                                 }
                                 val state = states[it.index]
-
                                 state.now = group.now
-
                                 design.updateGroup(
                                     it.index,
                                     group.proxies,

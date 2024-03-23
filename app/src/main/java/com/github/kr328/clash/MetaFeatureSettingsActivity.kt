@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kr328.clash.core.Clash
 import com.github.kr328.clash.design.MetaFeatureSettingsDesign
 import com.github.kr328.clash.util.clashDir
+import com.github.kr328.clash.design.R
 import com.github.kr328.clash.util.withClash
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers

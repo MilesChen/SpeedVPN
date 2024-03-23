@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
+import android.util.Log
 import com.github.kr328.clash.core.model.Proxy
 import com.github.kr328.clash.design.model.ProxyState
 import kotlin.math.absoluteValue
@@ -44,7 +45,6 @@ class ProxyViewState(
             } else {
                 if (linkNow !== link.now) {
                     linkNow = link.now
-
                     subtitle = "%s(%s)".format(
                         proxy.type.name,
                         link.now.ifEmpty { "*" }

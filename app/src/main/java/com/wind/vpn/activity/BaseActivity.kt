@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Debug
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.github.kr328.clash.R
 import com.github.kr328.clash.design.ui.ToastDuration
 import com.github.kr328.clash.remote.Remote
@@ -38,7 +40,7 @@ open abstract class BaseActivity : AppCompatActivity(), TopBarListener, Coroutin
         window.getDecorView()
             .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         window.setStatusBarColor(Color.TRANSPARENT);
-        window.setBackgroundDrawable(getDrawable(R.drawable.bg_b))
+        window.setBackgroundDrawable(getDrawable(com.github.kr328.clash.design.R.drawable.bg_b))
         if (getLayoutResId() != 0) {
             setContentView(getLayoutResId())
         } else {

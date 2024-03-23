@@ -3,6 +3,11 @@
     <attr name="fullScreenDialogTheme" format="reference" />
 
     <attr name="colorClashStopped" format="color" />
+    <attr name="colorPrimary" format="color" />
+    <attr name="colorOnPrimary" format="color" />
+    <attr name="colorSurface" format="color" />
+    <attr name="colorControlNormal" format="color" />
+    <attr name="colorOnSurface" format="color" />
     <attr name="colorControlDisabled" format="color" />
     <attr name="colorLogo" format="color" />
 

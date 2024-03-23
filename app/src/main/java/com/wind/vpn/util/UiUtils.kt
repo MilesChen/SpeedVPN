@@ -12,8 +12,10 @@ import android.view.View
 import android.widget.TextView
 import com.github.kr328.clash.R
 import com.github.kr328.clash.common.Global
-import com.github.kr328.clash.util.openInnerBrowser
+import com.github.kr328.clash.util.openServiceOnline
 import com.github.kr328.clash.util.startLoadUrl
+import java.io.File
+import java.io.FileInputStream
 import java.math.BigDecimal
 import java.security.MessageDigest
 
@@ -53,6 +55,26 @@ fun String.calculateMd5(): String {
     }.toString()
 }
 
+fun File.getFileMD5(): String {
+    val digest = MessageDigest.getInstance("MD5")
+    val fis = FileInputStream(this)
+    val buffer = ByteArray(1024)
+    var read = fis.read(buffer)
+    while (read != -1) {
+        digest.update(buffer, 0, read)
+        read = fis.read(buffer)
+    }
+    fis.close()
+    val md5Bytes = digest.digest()
+    return md5Bytes.joinToString("") { "%02x".format(it) }
+}
+
+fun ByteArray.getMd5():String {
+    val md = MessageDigest.getInstance("MD5")
+    val digest = md.digest(this)
+    return digest.joinToString ("") { "%02x".format(it) }
+}
+
 fun centToYuan(price:Long):String {
     return "${BigDecimal(price).divide(BigDecimal(100)).setScale(2, BigDecimal.ROUND_HALF_UP)}"
 }
@@ -82,7 +104,15 @@ fun TextView.buildSupperLinkSpan(originText:String, targetText:String, targetUrl
     val start = originText.indexOf(targetText)
     spannable.setSpan(object: ClickableSpan(){
         override fun onClick(widget: View) {
-            context.startLoadUrl(targetUrl)
+            if (targetUrl.startsWith("http")) {
+                context.startLoadUrl(targetUrl)
+
+            } else if (targetUrl.startsWith("crisp")) {
+                context.openServiceOnline()
+            } else {
+
+            }
+
 //            context.openInnerBrowser(targetUrl)
         }
 
@@ -90,8 +120,10 @@ fun TextView.buildSupperLinkSpan(originText:String, targetText:String, targetUrl
             super.updateDrawState(ds)
             ds.color = Color.parseColor("#198CFF")
             ds.isUnderlineText = underline
+            ds.bgColor = Color.TRANSPARENT
         }
     }, start, originText.length, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
     text = spannable
     movementMethod = LinkMovementMethod.getInstance()
+    highlightColor = Color.TRANSPARENT
 }

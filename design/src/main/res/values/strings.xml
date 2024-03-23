@@ -128,7 +128,7 @@
     <string name="access_control_packages">Access Control Packages</string>
     <string name="access_control_packages_summary">Configure access permission for apps</string>
 
-    <string name="options_unavailable">Options Unavailable until Clash Stopped</string>
+    <string name="options_unavailable">Options Unavailable until Wind Stopped</string>
 
     <string name="general">General</string>
     <string name="dns">DNS</string>

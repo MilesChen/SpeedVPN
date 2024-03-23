@@ -21,6 +21,7 @@ import com.github.kr328.clash.design.util.showExceptionToast
 import com.github.kr328.clash.log.LogcatFilter
 import com.github.kr328.clash.log.LogcatReader
 import com.github.kr328.clash.util.logsDir
+import com.github.kr328.clash.design.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.selects.select
