@@ -1,27 +1,31 @@
 package com.wind.vpn.activity
 
+import android.graphics.Rect
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.github.kr328.clash.R
+import com.github.kr328.clash.common.log.Log
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.data.account.WindAccount
 import com.wind.vpn.data.WindApi
 import com.wind.vpn.util.buildSupperLinkSpan
+import com.wind.vpn.util.dp2px
 import com.wind.vpn.widget.InputView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 const val KEY_GO_RENEW = "key_go_renew"
-class RegisterActivity : BaseActivity(), TextWatcher,
+class RegisterActivity : BaseActivity(), TextWatcher, OnGlobalLayoutListener,
     CoroutineScope by CoroutineScope(Dispatchers.Main) {
     private lateinit var inputName: InputView
     private lateinit var inputPwd1: InputView
@@ -30,6 +34,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
     private lateinit var changeRegister: TextView
     private lateinit var cbAgree: CheckBox
     private lateinit var title: TextView
+    private lateinit var mainContent: View
     private var isRegister = false
     private var isShowPwd1 = false
     private var isShowPwd2 = false
@@ -56,6 +61,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
 
     override fun initView() {
         super.initView()
+        mainContent = findViewById(R.id.main_content)
         goRenew = intent.getBooleanExtra(KEY_GO_RENEW, false)
         inputName = findViewById(R.id.input_username)
         inputPwd1 = findViewById(R.id.input_pwd_1)
@@ -90,6 +96,30 @@ class RegisterActivity : BaseActivity(), TextWatcher,
         addWatcher()
         addClick()
         updateRegisterState(false)
+        mainContent.viewTreeObserver.addOnGlobalLayoutListener(this)
+    }
+
+    private var mPreHeight = 0
+    private var mKeyBorderHeight = 0
+    private fun resizeWindow() {
+        val rect = Rect()
+        mainContent.getWindowVisibleDisplayFrame(rect)
+        val screenHeight = mainContent.rootView.height
+        val keyboardHeight = screenHeight - rect.bottom
+        android.util.Log.d("chenchao", "screenHeight: $screenHeight, keyboardHeight: $keyboardHeight")
+        if (keyboardHeight != mPreHeight) {
+            mPreHeight = keyboardHeight
+            android.util.Log.d("chenchao", "paddingBottom: ${mainContent.paddingBottom}")
+            if (keyboardHeight > 200) {
+                mKeyBorderHeight = keyboardHeight
+//                mainContent.setPadding(mainContent.paddingLeft, mainContent.paddingTop, mainContent.paddingRight, mainContent.paddingBottom+mKeyBorderHeight)
+                mainContent.translationY = -dp2px(40.0f).toFloat()
+            } else {
+//                mainContent.setPadding(mainContent.paddingLeft, mainContent.paddingTop, mainContent.paddingRight, mainContent.paddingBottom-mKeyBorderHeight)
+                mainContent.translationY = 0f
+            }
+        }
+
     }
 
     private fun addClick() {
@@ -127,7 +157,7 @@ class RegisterActivity : BaseActivity(), TextWatcher,
         val isPwd1Ok = inputPwd1.inputText.text?.isNotEmpty() ?: false
         val isPwd2Ok = inputPwd2.inputText.text?.isNotEmpty()?:false
         val isCheckbox = cbAgree.isChecked
-        val enable: Boolean = isNameOk && isPwd1Ok && ((isPwd2Ok && isCheckbox) || !isRegister)
+        val enable: Boolean = isNameOk && isPwd1Ok && ((isPwd2Ok/* && isCheckbox*/) || !isRegister)
         btn.isEnabled = enable;
     }
 
@@ -192,5 +222,9 @@ class RegisterActivity : BaseActivity(), TextWatcher,
                 }
             }
         }
+    }
+
+    override fun onGlobalLayout() {
+        resizeWindow()
     }
 }

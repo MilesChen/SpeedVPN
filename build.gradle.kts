@@ -132,9 +132,11 @@ subprojects {
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
+                buildConfigField("String", "FORBIDDEN", "\"\"")
             }
             named("debug") {
                 versionNameSuffix = ".debug"
+                buildConfigField("String", "FORBIDDEN", "\"\"")
             }
         }
 

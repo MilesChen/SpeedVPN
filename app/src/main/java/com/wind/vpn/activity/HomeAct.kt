@@ -6,12 +6,14 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import com.github.kr328.clash.BaseActivity
 import com.github.kr328.clash.BuildConfig
 import com.github.kr328.clash.R
 import com.github.kr328.clash.common.util.ticker
+import com.github.kr328.clash.databinding.ViewForbiddenDialogBinding
 import com.github.kr328.clash.databinding.ViewRenewalDialogBinding
 import com.github.kr328.clash.design.ui.ToastDuration
 import com.github.kr328.clash.util.startClashService
@@ -30,6 +32,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 
@@ -152,6 +155,25 @@ class HomeAct : BaseActivity<HomeDesign>() {
         }
 
     }
+     private var forbiddenDialog: Dialog? = null
+    private fun showForbiddenDialog() {
+        forbiddenDialog?.let {
+            if (it.isShowing) {
+                return
+            }
+        }
+        if (forbiddenDialog == null) {
+            forbiddenDialog = Dialog(this, R.style.RenewalDialog).apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+                val viewBinding = ViewForbiddenDialogBinding.inflate(layoutInflater, findViewById(android.R.id.content), false)
+                setContentView(viewBinding.root)
+            }
+
+        }
+        forbiddenDialog!!.show()
+
+    }
 
     private fun startLunchInstall() {
         val installIntent = Intent()
@@ -200,6 +222,19 @@ class HomeAct : BaseActivity<HomeDesign>() {
     }
 
     private suspend fun HomeDesign.fetch() {
+        var local:Locale? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            local = resources.configuration.locales.get(0)
+        } else {
+            local = resources.configuration.locale
+        }
+        local?.let {
+            val lc = "${it.language}-${it.country}"
+            if (BuildConfig.FORBIDDEN.contains(lc)) {
+                showForbiddenDialog()
+                return
+            }
+        }
         setClashRunning(clashRunning)
         val state = withClash {
             queryTunnelState()

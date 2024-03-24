@@ -112,4 +112,6 @@
     <string name="renewal_dialog_content_user" translatable="false">Your time has expired</string>
     <string name="choose_and_share" translatable="false">Choose to share</string>
     <string name="copy_to_clipboard" translatable="false">Copied to clipboard</string>
+    <string name="forbidden_content" translatable="false">Service unavailable in your region.\n本服务不支持在中国大陆地区使用，谢谢理解。</string>
+    <string name="forbidden_title" translatable="false">Remind</string>
 </resources>
