@@ -14,7 +14,6 @@ import com.github.kr328.clash.databinding.ActSaveOrderBinding
 import com.github.kr328.clash.databinding.ViewPaymentItemBinding
 import com.github.kr328.clash.util.startLoadUrl
 import com.wind.vpn.bean.toBean
-import com.wind.vpn.data.DomainManager
 import com.wind.vpn.data.WindApi
 import com.wind.vpn.data.bean.OrderInfo
 import com.wind.vpn.data.bean.PayMethod

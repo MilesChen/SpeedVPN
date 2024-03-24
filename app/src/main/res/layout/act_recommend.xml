@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="symbol"
+            type="String" />
+        <variable
+            name="inviteInfo"
+            type="com.wind.vpn.data.bean.InviteResp" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_content"
@@ -55,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_header_bold" />
 
         <com.wind.vpn.widget.CenterTextView
-            android:id="@+id/btn_renewal_drawer"
+            android:id="@+id/btn_share_link"
             style="@style/BlueBtnStyle"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -75,10 +83,11 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="20dp"
+            android:visibility="gone"
             android:drawableLeft="@drawable/icon_qrcode"
             android:drawablePadding="8dp"
             android:text="@string/share_qrcode"
-            app:layout_constraintTop_toBottomOf="@id/btn_renewal_drawer" />
+            app:layout_constraintTop_toBottomOf="@id/btn_share_link" />
 
         <LinearLayout
             android:id="@+id/ll_bottom_info"
@@ -114,7 +123,7 @@
                         style="@style/TextBigBlue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12" />
+                        android:text="@{inviteInfo.getRecommendPeople()}" />
                     <TextView
                         style="@style/TextSmallStyle.Blue"
                         android:layout_width="wrap_content"
@@ -152,13 +161,14 @@
                         style="@style/TextBigBlue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12" />
+                        android:text="0" />
                     <TextView
+                        android:id="@+id/tv_unit"
                         style="@style/TextSmallStyle.Blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="@string/hours" />
+                        android:text="@{symbol}"/>
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

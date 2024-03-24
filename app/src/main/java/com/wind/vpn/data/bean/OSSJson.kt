@@ -10,6 +10,7 @@ class OSSJson {
     var clientLastVersion: List<ClientLastVersion>? = null
     var everyPlayingUrl: String? = null
     var qrCodeUrl: String = ""
+    var registerUrl: String = "https://metaconcet.com"
     fun isValid(): Boolean {
         return !RemoteHosts.isNullOrEmpty()
     }

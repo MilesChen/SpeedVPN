@@ -1,6 +1,7 @@
 package com.github.kr328.clash
 
 import android.app.AlertDialog
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
@@ -108,7 +109,7 @@ abstract class BaseActivity<D : Design<*>> :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setWindowStyle()
 
         launch {

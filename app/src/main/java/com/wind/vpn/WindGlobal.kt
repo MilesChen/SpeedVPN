@@ -23,10 +23,8 @@ import com.wind.vpn.data.account.WindProfile
 import com.wind.vpn.data.account.WindSubscribe
 import com.wind.vpn.upgrade.UpgradeManager
 import com.wind.vpn.util.calculateMd5
-import im.crisp.client.Crisp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {

@@ -70,7 +70,7 @@ object WindApi {
     /**
      * 获取订阅地址
      */
-    fun loadWindSubscribe():BaseBean<WindSubscribe> {
+    fun loadWindSubscribe(): BaseBean<WindSubscribe> {
         return RequestManager.requestByGetComm<WindSubscribe>(API_USER_SUBSCRIBE)
     }
 
@@ -81,7 +81,7 @@ object WindApi {
     /**
      * 获取订单货币类型
      */
-    fun getCommConf():BaseBean<CommConfig> {
+    fun getCommConf(): BaseBean<CommConfig> {
         return RequestManager.requestByGetComm<CommConfig>(API_PLAN_CONF)
     }
 
@@ -90,7 +90,7 @@ object WindApi {
      * 创建订单
      * @param plan_id WindPlan中的id
      */
-    fun saveOrder(period:String, plan_id:Long, coupon_code:String?):BaseBean<String> {
+    fun saveOrder(period:String, plan_id:Long, coupon_code:String?): BaseBean<String> {
         val params = HashMap<String, Any?>()
         params["period"] = period
         params["plan_id"] = plan_id
@@ -100,7 +100,7 @@ object WindApi {
         return RequestManager.requestByPostComm<String>(API_ORDER_SAVE, params)
     }
 
-    fun getOrderDetail(trade_no: String):BaseBean<OrderInfo> {
+    fun getOrderDetail(trade_no: String): BaseBean<OrderInfo> {
         val params = HashMap<String, Any?>()
         params["trade_no"] = trade_no
         return RequestManager.requestByGetComm<OrderInfo>(API_ORDER_DETAIL, params)
@@ -109,14 +109,14 @@ object WindApi {
     /**
      * 获取支持的支付方式
      */
-    fun getPayMethod():BaseBean<List<PayMethod>>{
+    fun getPayMethod(): BaseBean<List<PayMethod>> {
         return RequestManager.requestByGetComm<List<PayMethod>>(API_GET_PAYMENT)
     }
 
     /**
      * 获取用户订单列表
      */
-    fun getOrderList():BaseBean<List<OrderInfo>> {
+    fun getOrderList(): BaseBean<List<OrderInfo>> {
         return RequestManager.requestByGetComm<List<OrderInfo>>(API_GET_ORDER_LIST)
     }
 
@@ -125,7 +125,7 @@ object WindApi {
      * 取消某个待支付订单
      * @param trade_no 订单号
      */
-    fun cancelOrder(trade_no: String):BaseBean<Boolean> {
+    fun cancelOrder(trade_no: String): BaseBean<Boolean> {
         var params = HashMap<String, Any?>()
         params.put("trade_no", trade_no)
         return RequestManager.requestByPostComm<Boolean>(API_CANCEL_ORDER, params)
@@ -149,35 +149,35 @@ object WindApi {
     /**
      * checkout出聚合支付地址
      */
-    fun checkoutOrder(trade_no:String, method:Int):BaseBean<String> {
+    fun checkoutOrder(trade_no:String, method:Int): BaseBean<String> {
         val params = HashMap<String, Any?>()
         params["trade_no"] = trade_no
         params["method"] = method
         return RequestManager.requestByPostComm<String>(API_CHECKOUT_ORDER, params)
     }
 
-    fun checkOrderStatus(trade_no: String):BaseBean<Int> {
+    fun checkOrderStatus(trade_no: String): BaseBean<Int> {
         val params = HashMap<String, Any?>()
         params["trade_no"] = trade_no
         return RequestManager.requestByGetComm<Int>(API_ORDER_CHECK, params)
     }
 
-    fun verifyCoupon(code: String, plan_id: Long):BaseBean<CouponBean> {
+    fun verifyCoupon(code: String, plan_id: Long): BaseBean<CouponBean> {
         val params = HashMap<String, Any?>()
         params["code"] = code
         params["plan_id"] = plan_id
         return RequestManager.requestByPostComm<CouponBean>(API_VERIFY_COUPON, params)
     }
 
-    fun getNotice():BaseBean<List<NoticeBean>> {
+    fun getNotice(): BaseBean<List<NoticeBean>> {
         return RequestManager.requestByGetComm<List<NoticeBean>>(API_GET_NOTICE)
     }
 
-    fun getInviteInfo():BaseBean<InviteResp> {
+    fun getInviteInfo(): BaseBean<InviteResp> {
         return RequestManager.requestByGetComm<InviteResp>(API_GET_INVITE)
     }
 
-    fun getInviteCode():BaseBean<String> {
-        return RequestManager.requestByGetComm<String>(API_GET_GEN_INVITE_CODE)
+    fun getInviteCode(): BaseBean<Boolean> {
+        return RequestManager.requestByGetComm<Boolean>(API_GET_GEN_INVITE_CODE)
     }
 }

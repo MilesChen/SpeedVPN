@@ -27,7 +27,6 @@ import kotlinx.coroutines.withContext
 
 
 class SafeLossActivity:BaseActivity() {
-    private val REQUEST_CODE: Int = 1
     private lateinit var binding:ActSafeLossBinding
     override fun genCustomView(): View {
         binding = ActSafeLossBinding.inflate(layoutInflater, findViewById(android.R.id.content), false)
@@ -43,23 +42,9 @@ class SafeLossActivity:BaseActivity() {
     }
 
     private fun saveImage() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE);
-        } else {
-            saveBitmap()
-        }
+        saveBitmap()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            saveBitmap()
-        }
-    }
 
     private fun saveBitmap() {
         saveBitmapAsync()

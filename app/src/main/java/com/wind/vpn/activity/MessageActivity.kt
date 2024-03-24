@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.github.kr328.clash.R
 import com.github.kr328.clash.databinding.ActMessageCenterBinding
 import com.github.kr328.clash.databinding.ViewItemMessageBinding
 import com.github.kr328.clash.design.util.layoutInflater
 import com.wind.vpn.data.WindApi
 import com.wind.vpn.data.bean.NoticeBean
-import com.wind.vpn.design.noticeIcon
 import com.wind.vpn.holder.BaseHolder
 import com.wind.vpn.toJson
 import com.wind.vpn.util.dp2px

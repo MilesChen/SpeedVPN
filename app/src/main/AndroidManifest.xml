@@ -42,6 +42,8 @@
             android:name="com.wind.vpn.activity.HomeAct"
             android:configChanges="uiMode"
             android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/BootstrapTheme"
             android:label="@string/launch_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -98,53 +100,69 @@
         </activity>
         <activity
             android:name="com.wind.vpn.activity.UserCenterActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.ChangeCountryActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.MemberFreeActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.MessageActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.MessageDetailActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.OnlineServiceActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.PlayingActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.RecommendActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.SafeLossActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.UploadLogActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.FillFriendIdActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <activity
             android:name="com.wind.vpn.activity.RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.RechargeActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustPan"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.PayCheckoutActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.BrowserActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.wind.vpn.activity.AppSettingsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.github.kr328.clash.ApkBrokenActivity"
@@ -194,16 +212,19 @@
             android:label="@string/logcat" />
         <activity
             android:name="com.github.kr328.clash.SettingsActivity"
+            android:screenOrientation="portrait"
             android:configChanges="uiMode"
             android:exported="false"
             android:label="@string/settings" />
         <activity
             android:name="com.github.kr328.clash.NetworkSettingsActivity"
+            android:screenOrientation="portrait"
             android:configChanges="uiMode"
             android:exported="false"
             android:label="@string/network" />
         <activity
             android:name="com.github.kr328.clash.AppSettingsActivity"
+            android:screenOrientation="portrait"
             android:configChanges="uiMode"
             android:exported="false"
             android:label="@string/app" />

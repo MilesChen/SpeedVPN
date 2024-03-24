@@ -2,7 +2,6 @@ package com.wind.vpn.activity
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -91,7 +90,7 @@ class RechargeActivity:BaseActivity() {
 
     private fun loadData() {
         launch(Dispatchers.IO) {
-            var plan:BaseBean<List<WindPlan>>? = null
+            var plan: BaseBean<List<WindPlan>>? = null
             var planConf: CommConfig? = null
             var task1 = thread { plan = WindApi.fetchWindPackage() }
             var task2 = thread { planConf = CommConfMgr.loadCommConf() }

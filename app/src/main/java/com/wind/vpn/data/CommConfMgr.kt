@@ -31,7 +31,16 @@ object CommConfMgr:CoroutineScope by CoroutineScope(Dispatchers.IO) {
         if (result.isSuccess) {
             commConfig = result.data
         }
+        if (commConfig == null) {}
         return commConfig
+    }
+
+    fun getUserCommConfig():CommConfig {
+        var config = loadCommConf()
+        if (config == null) {
+            config = CommConfig()
+        }
+        return config!!
     }
 
     private var commConfig: CommConfig?

@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
     private const val api_version = "/api/v1"
     private var sso_list = mutableListOf<String>(
-        "https://metaconcet.com/windfast.json",
+        "https://f123.ink/windfast.json",
         "https://f123.ink/windfast.json",
         "https://fast2.ink/windfast.json",
         "https://fwind.ink/windfast.json",
@@ -35,17 +35,40 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                 "    ],\n" +
                 "    \"RemoteJson\": [\n" +
                 "        \"https://metaconcet.com/windfast.json\",\n" +
-                "        \" https://f123.ink/windfast.json\",\n" +
+                "        \"https://f123.ink/windfast.json\",\n" +
                 "        \"https://fast2.ink/windfast.json\",\n" +
                 "        \"https://fwind.ink/windfast.json\",\n" +
                 "        \"https://fwind.xyz/windfast.json\"\n" +
+                "    ],\n" +
+                "    \"clientLastVersion\": [\n" +
+                "        {\n" +
+                "            \"clientType\": 1,\n" +
+                "            \"versionCode\": 240322,\n" +
+                "            \"versionName\": \"1.0.7\",\n" +
+                "            \"targetUrl\": \"https://f123.ink/dl/android/wind-1.0.7-meta-arm64-v8a-release.apk\",\n" +
+                "            \"md5\": \"74db202d0e053ffbc825a1880097df31\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"clientType\": 2,\n" +
+                "            \"versionCode\": 1234,\n" +
+                "            \"versionName\": \"版本号\",\n" +
+                "            \"targetUrl\": \"文件下载地址或应用市场地址\",\n" +
+                "            \"md5\": \"完整文件md5的值\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"clientType\": 4,\n" +
+                "            \"versionCode\": 1234,\n" +
+                "            \"versionName\": \"版本号\",\n" +
+                "            \"targetUrl\": \"文件下载地址或应用市场地址\",\n" +
+                "            \"md5\": \"完整文件md5的值\"\n" +
+                "        }\n" +
                 "    ],\n" +
                 "    \"RemoteType\": 0,\n" +
                 "    \"HomePage\": \"https://metaconcet.com\",\n" +
                 "    \"TelegramGroup\": \"https://t.me/mao3vpn\",\n" +
                 "    \"BuiltInProxy\": \"\",\n" +
-                "    \"everyPlayingUrl\": \"https://metaconcet.com/windfast.json/play.htm\",\n" +
-                "    \"qrCodeUrl\": \"https://metaconcet.com/dl/qr/download1.0.5.png\"\n" +
+                "    \"everyPlayingUrl\": \"https://f123.ink/play.htm\",\n" +
+                "    \"qrCodeUrl\": \"https://f123.ink/dl/qr/download1.0.7.png\"\n" +
                 "}"
     var ossBean: OSSJson =
         store.lastOSS.toBean<OSSJson>() ?: (defaultSSOJson.toBean<OSSJson>() ?: OSSJson())
