@@ -133,10 +133,12 @@ subprojects {
                     "proguard-rules.pro"
                 )
                 buildConfigField("String", "FORBIDDEN", "\"\"")
+                buildConfigField("boolean", "Loggable", "Boolean.parseBoolean(\"false\")")
             }
             named("debug") {
                 versionNameSuffix = ".debug"
                 buildConfigField("String", "FORBIDDEN", "\"\"")
+                buildConfigField("boolean", "Loggable", "Boolean.parseBoolean(\"false\")")
             }
         }
 

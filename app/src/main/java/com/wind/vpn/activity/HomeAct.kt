@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Debug
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -20,14 +21,20 @@ import com.github.kr328.clash.util.startClashService
 import com.github.kr328.clash.util.stopClashService
 import com.github.kr328.clash.util.withClash
 import com.github.kr328.clash.util.withProfile
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
+import com.google.android.play.core.review.testing.FakeReviewManager
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.bean.NET_ERR
 import com.wind.vpn.data.WindApi
 import com.wind.vpn.data.account.GUEST_SUFFIX
 import com.wind.vpn.data.account.WindAccount
 import com.wind.vpn.design.HomeDesign
+import com.wind.vpn.widget.CommDialog
 import im.crisp.client.Crisp
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
@@ -38,6 +45,7 @@ import java.util.concurrent.TimeUnit
 
 class HomeAct : BaseActivity<HomeDesign>() {
     private var firstResume = true
+    private var profileState = 0
     override suspend fun main() {
         Crisp.configure(this, "3a504d1e-a777-482d-abf1-fa378b30ad2c")
         val design = HomeDesign(this)
@@ -66,6 +74,9 @@ class HomeAct : BaseActivity<HomeDesign>() {
                                 tryRegisterGuest()
                             }
                         }
+                        Event.ProfileUpdateFailed -> {
+                            showErrorDialog()
+                        }
 
                         else -> Unit
                     }
@@ -80,7 +91,8 @@ class HomeAct : BaseActivity<HomeDesign>() {
                         }
 
                         HomeDesign.Request.OpenCharge -> {
-                            goRenew()
+                            showReviewInfo()
+//                            goRenew()
                         }
                     }
                 }
@@ -175,6 +187,26 @@ class HomeAct : BaseActivity<HomeDesign>() {
 
     }
 
+    private fun showErrorDialog() {
+        launch(Dispatchers.IO) {
+            val tempActive = withProfile { queryActive() }
+            if (tempActive?.imported == false) {
+                profileState = -1
+                withContext(Dispatchers.Main) {
+                    val dialog = CommDialog(this@HomeAct, R.style.RenewalDialog).apply {
+                        setMessage(getString(R.string.profile_load_err))
+                        setButton(getString(R.string.retry)) {
+                            loadUserInfo()
+                        }
+                    }
+                    dialog.show()
+                }
+            }
+        }
+
+
+    }
+
     private fun startLunchInstall() {
         val installIntent = Intent()
         installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -198,9 +230,37 @@ class HomeAct : BaseActivity<HomeDesign>() {
     }
 
     private suspend fun HomeDesign.startClash() {
+//        if (true) {
+//            showReviewInfo()
+//            return
+//        }
         val active = withProfile { queryActive() }
-        if (active == null || !active.imported || WindGlobal.userInfo.expired_at * 1000L < System.currentTimeMillis()) {
+        if (WindGlobal.userInfo.expired_at * 1000L < System.currentTimeMillis()){
             showRenewDialog()
+            return;
+        }
+        if (active == null || !active.imported) {
+            showLoading(getString(R.string.init_msg))
+            var retryCount = 0;
+            profileState = 0
+            launch(Dispatchers.IO) {
+                while (retryCount < 10 && profileState != -1) {
+                    delay(1000)
+                    retryCount++
+                    val tempActive = withProfile { queryActive() }
+                    Log.d("WindGlobal", "tempActive: $tempActive imported ${tempActive?.imported}")
+                    if (tempActive?.imported == true) {
+                        withContext(Dispatchers.Main){
+                            hideLoading()
+                        }
+                        startClash()
+                        break
+                    }
+                }
+                withContext(Dispatchers.Main){
+                    hideLoading()
+                }
+            }
             return
         }
 
@@ -236,15 +296,15 @@ class HomeAct : BaseActivity<HomeDesign>() {
             }
         }
         setClashRunning(clashRunning)
-        val state = withClash {
-            queryTunnelState()
-        }
-        val providers = withClash {
-            queryProviders()
-        }
-        withProfile {
+//        val state = withClash {
+//            queryTunnelState()
+//        }
+//        val providers = withClash {
+//            queryProviders()
+//        }
+//        withProfile {
 //            setProfileName(queryActive()?.name)
-        }
+//        }
         updateUI()
     }
 
@@ -295,6 +355,23 @@ class HomeAct : BaseActivity<HomeDesign>() {
                     showToast(getString(R.string.toast_error))
                 }
                 hideLoading()
+            }
+        }
+    }
+
+    private fun showReviewInfo() {
+        val manager = FakeReviewManager(this)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // We got the ReviewInfo object
+                val reviewInfo = task.result
+                val flow = manager.launchReviewFlow(this, reviewInfo)
+                flow.addOnCompleteListener { _ ->
+                    // The flow has finished. The API does not indicate whether the user
+                    // reviewed or not, or even whether the review dialog was shown. Thus, no
+                    // matter the result, we continue our app flow.
+                }
             }
         }
     }

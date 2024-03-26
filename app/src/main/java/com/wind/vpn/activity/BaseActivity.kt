@@ -23,6 +23,7 @@ import com.github.kr328.clash.util.ActivityResultLifecycle
 import com.google.android.material.snackbar.Snackbar
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.util.goTargetClass
+import com.wind.vpn.widget.LoadingDialog
 import com.wind.vpn.widget.TopBar
 import com.wind.vpn.widget.TopBarListener
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +36,7 @@ import kotlin.coroutines.suspendCoroutine
 
 open abstract class BaseActivity : AppCompatActivity(), TopBarListener, CoroutineScope by MainScope() {
     private val nextRequestKey = AtomicInteger(0)
-    private var loadingProgressBar: AlertDialog? = null
+    private var loadingProgressBar: LoadingDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -86,13 +87,12 @@ open abstract class BaseActivity : AppCompatActivity(), TopBarListener, Coroutin
         cancel()
     }
 
-    fun showLoading() {
+    fun showLoading(msg:String = getString(R.string.toast_loading)) {
         if (loadingProgressBar == null) {
-            val builder = AlertDialog.Builder(this)
-            builder.setCancelable(false)
-            builder.setView(R.layout.view_loading_dialog)
-            loadingProgressBar = builder.create()
-            loadingProgressBar!!.setCanceledOnTouchOutside(false)
+            loadingProgressBar = LoadingDialog(this, R.style.RenewalDialog)
+        }
+        msg?.let {
+            loadingProgressBar!!.setMessage(msg)
         }
         loadingProgressBar?.show()
     }

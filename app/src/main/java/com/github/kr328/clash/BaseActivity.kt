@@ -26,6 +26,7 @@ import com.github.kr328.clash.remote.Broadcasts
 import com.github.kr328.clash.remote.Remote
 import com.github.kr328.clash.util.ActivityResultLifecycle
 import com.github.kr328.clash.util.ApplicationObserver
+import com.wind.vpn.widget.LoadingDialog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import java.util.*
@@ -248,12 +249,13 @@ abstract class BaseActivity<D : Design<*>> :
         window.setStatusBarColor(Color.TRANSPARENT);
     }
 
-    private var loadingProgressBar: AlertDialog? = null
-    fun showLoading() {
+    private var loadingProgressBar: LoadingDialog? = null
+    fun showLoading(msg:String = getString(R.string.toast_loading)) {
         if (loadingProgressBar == null) {
-            val builder = AlertDialog.Builder(this)
-            builder.setView(R.layout.view_loading_dialog)
-            loadingProgressBar = builder.create()
+            loadingProgressBar = LoadingDialog(this, R.style.RenewalDialog)
+        }
+        msg?.let {
+            loadingProgressBar!!.setMessage(msg)
         }
         loadingProgressBar?.show()
     }

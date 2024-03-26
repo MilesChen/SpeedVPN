@@ -79,7 +79,7 @@
     <string name="account_expire_time" translatable="false">Expire date: %1$s</string>
     <string name="account_register_login" translatable="false">Log in/Register ></string>
     <string name="toast_pwd_err" translatable="false">incorrect password</string>
-    <string name="toast_loading" translatable="false">loading...</string>
+    <string name="toast_loading" translatable="false">Loading...</string>
     <string name="toast_error" translatable="false">Request Failed</string>
     <string name="toast_save_suc" translatable="false">Save Success</string>
     <string name="toast_pay_suc" translatable="false">Pay Success</string>
@@ -114,4 +114,7 @@
     <string name="copy_to_clipboard" translatable="false">Copied to clipboard</string>
     <string name="forbidden_content" translatable="false">Service unavailable in your region.\n本服务不支持在中国大陆地区使用，谢谢理解。</string>
     <string name="forbidden_title" translatable="false">Remind</string>
+    <string name="init_msg" translatable="false">Prepare configuration for the first time</string>
+    <string name="retry" translatable="false">Tap and retry</string>
+    <string name="profile_load_err" translatable="false">Configuration load failed please try again!</string>
 </resources>

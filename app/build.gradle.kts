@@ -29,6 +29,8 @@ dependencies {
     implementation ("im.crisp:crisp-sdk:2.0.0beta1")
     implementation ("androidx.multidex:multidex:2.0.1")
     implementation ("com.android.support:multidex:1.0.3")
+    implementation("com.google.android.play:review:2.0.1")
+    implementation("com.google.android.play:review-ktx:2.0.1")
 //    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
 //    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 }
@@ -48,15 +50,15 @@ task("downloadGeoFiles") {
     )
 
     doLast {
-        geoFilesUrls.forEach { (downloadUrl, outputFileName) ->
-            val url = URL(downloadUrl)
-            val outputPath = file("$geoFilesDownloadDir/$outputFileName")
-            outputPath.parentFile.mkdirs()
-            url.openStream().use { input ->
-                Files.copy(input, outputPath.toPath(), StandardCopyOption.REPLACE_EXISTING)
-                println("$outputFileName downloaded to $outputPath")
-            }
-        }
+//        geoFilesUrls.forEach { (downloadUrl, outputFileName) ->
+//            val url = URL(downloadUrl)
+//            val outputPath = file("$geoFilesDownloadDir/$outputFileName")
+//            outputPath.parentFile.mkdirs()
+//            url.openStream().use { input ->
+//                Files.copy(input, outputPath.toPath(), StandardCopyOption.REPLACE_EXISTING)
+//                println("$outputFileName downloaded to $outputPath")
+//            }
+//        }
     }
 }
 

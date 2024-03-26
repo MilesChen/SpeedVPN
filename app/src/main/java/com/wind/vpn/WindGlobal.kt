@@ -97,7 +97,6 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
             }
         }
         launch {
-//            delay(1000L)
             var windSubscribe = WindApi.loadWindSubscribe()
             if (windSubscribe.isSuccess) {
                 subscribe = windSubscribe.data!!
