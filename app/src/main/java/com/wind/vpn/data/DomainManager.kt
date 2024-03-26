@@ -1,9 +1,9 @@
 package com.wind.vpn.data
 
 import android.content.Intent
-import android.util.Log
 import com.github.kr328.clash.common.Global
 import com.github.kr328.clash.common.constants.Intents
+import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.service.util.sendBroadcastSelf
 import com.github.kr328.clash.store.AppStore
 import com.google.gson.Gson
@@ -101,7 +101,7 @@ object DomainManager : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                     launch(Dispatchers.IO) {
                         WindGlobal.upgradeManager.checkVersion()
                     }
-                    Log.d(TAG, "get oss success! stop loading")
+                    Log.d("get oss success! stop loading")
                     return
                 }
             }

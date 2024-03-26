@@ -106,10 +106,10 @@ class RegisterActivity : BaseActivity(), TextWatcher, OnGlobalLayoutListener,
         mainContent.getWindowVisibleDisplayFrame(rect)
         val screenHeight = mainContent.rootView.height
         val keyboardHeight = screenHeight - rect.bottom
-        android.util.Log.d("chenchao", "screenHeight: $screenHeight, keyboardHeight: $keyboardHeight")
+        Log.d("screenHeight: $screenHeight, keyboardHeight: $keyboardHeight")
         if (keyboardHeight != mPreHeight) {
             mPreHeight = keyboardHeight
-            android.util.Log.d("chenchao", "paddingBottom: ${mainContent.paddingBottom}")
+            Log.d("paddingBottom: ${mainContent.paddingBottom}")
             if (keyboardHeight > 200) {
                 mKeyBorderHeight = keyboardHeight
 //                mainContent.setPadding(mainContent.paddingLeft, mainContent.paddingTop, mainContent.paddingRight, mainContent.paddingBottom+mKeyBorderHeight)

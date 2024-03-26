@@ -7,12 +7,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Debug
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import com.github.kr328.clash.BaseActivity
 import com.github.kr328.clash.BuildConfig
 import com.github.kr328.clash.R
+import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.common.util.ticker
 import com.github.kr328.clash.databinding.ViewForbiddenDialogBinding
 import com.github.kr328.clash.databinding.ViewRenewalDialogBinding
@@ -248,7 +248,7 @@ class HomeAct : BaseActivity<HomeDesign>() {
                     delay(1000)
                     retryCount++
                     val tempActive = withProfile { queryActive() }
-                    Log.d("WindGlobal", "tempActive: $tempActive imported ${tempActive?.imported}")
+                    Log.d("tempActive: $tempActive imported ${tempActive?.imported}")
                     if (tempActive?.imported == true) {
                         withContext(Dispatchers.Main){
                             hideLoading()

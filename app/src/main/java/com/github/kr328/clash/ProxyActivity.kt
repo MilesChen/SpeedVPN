@@ -1,6 +1,5 @@
 package com.github.kr328.clash
 
-import android.util.Log
 import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.core.Clash
 import com.github.kr328.clash.core.model.Proxy

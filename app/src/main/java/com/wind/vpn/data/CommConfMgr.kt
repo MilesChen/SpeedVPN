@@ -1,7 +1,7 @@
 package com.wind.vpn.data
 
-import android.util.Log
 import com.github.kr328.clash.common.Global
+import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.store.AppStore
 import com.wind.vpn.bean.toBean
 import com.wind.vpn.data.bean.CommConfig
@@ -23,7 +23,7 @@ object CommConfMgr:CoroutineScope by CoroutineScope(Dispatchers.IO) {
     fun loadCommConf(force:Boolean = false):CommConfig? {
         if (!force) {
             if (!commConfig?.currency_symbol.isNullOrEmpty()) {
-                Log.d("Wind", "get commConfig from cache: ${commConfig.toJson()}")
+                Log.d("get commConfig from cache: ${commConfig.toJson()}")
                 return commConfig
             }
         }

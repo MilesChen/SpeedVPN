@@ -77,7 +77,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
         if (context.isMainProgress()) {
             DomainManager.init()
             CommConfMgr.init()
-            android.util.Log.d("chenchao", "application is ${Global.application}")
+            Log.d("application is ${Global.application}")
         }
         var info = context.packageManager.getPackageInfo(context.packageName, 0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -108,7 +108,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                             if (existsUUID == null) {
                                 val uri = Uri.parse(it.subscribe_url!!)
                                 val url = uri.buildUpon().appendQueryParameter("flag", "meta").build().toString()
-                                android.util.Log.d(TAG, "uuid not exists create $url")
+                                Log.d("uuid not exists create $url")
                                 existsUUID = create(
                                     Profile.Type.Url,
                                     name,
@@ -117,7 +117,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                             }
                             val profile = queryByUUID(existsUUID)
                             if (profile?.pending != true || profile?.imported != true) {
-                                android.util.Log.d(TAG, "uuid not pending commit")
+                                Log.d("uuid not pending commit")
                                 try {
                                     commit(existsUUID) { fetchStatus->
                                         Log.d("$TAG ${fetchStatus.action.name}")
@@ -130,7 +130,7 @@ object WindGlobal : CoroutineScope by CoroutineScope(Dispatchers.IO) {
                                     Log.d(TAG, e)
                                 }
                             }
-                            android.util.Log.d(TAG, "uuid is ok update it")
+                            Log.d("uuid is ok update it")
                             update(existsUUID)
                             if (queryActive() == null && profile != null) {
                                 setActive(profile)

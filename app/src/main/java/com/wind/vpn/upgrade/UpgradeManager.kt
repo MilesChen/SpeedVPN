@@ -4,9 +4,9 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import com.github.kr328.clash.common.Global
 import com.github.kr328.clash.common.constants.Intents
+import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.design.store.UiStore
 import com.github.kr328.clash.design.ui.DAY_TIME
 import com.github.kr328.clash.service.util.sendBroadcastSelf
@@ -117,7 +117,7 @@ private fun isSignOk(apkFile: File):Boolean {
     }
     val apkMd5 = getApkMd5(apkPackageInfo)
     val selfMd5 = getApkMd5(selfPackageInfo)
-    Log.d("chenchao", "apkMd5:$apkMd5 selfMd5:$selfMd5 isVersionOk:$isVersionOk")
+    Log.d("apkMd5:$apkMd5 selfMd5:$selfMd5 isVersionOk:$isVersionOk")
     return apkMd5 == selfMd5 && isVersionOk
 }
 

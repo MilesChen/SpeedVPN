@@ -1,7 +1,7 @@
 package com.wind.vpn.data
 
-import android.util.Log
 import com.github.kr328.clash.common.Global
+import com.github.kr328.clash.common.log.Log
 import com.wind.vpn.WindGlobal
 import com.wind.vpn.bean.BaseBean
 import com.wind.vpn.bean.ERROR
@@ -60,7 +60,7 @@ object RequestManager {
         params: HashMap<String, Any?> = HashMap(),
         transform: (String) -> String = { ex -> ex }
     ): BaseBean<R>? {
-        Log.d(TAG, "start do GET request $url")
+        Log.d("start do GET request $url")
         var result: BaseBean<R> = BaseBean()
         try {
             refreshCommHeaders()
@@ -81,10 +81,10 @@ object RequestManager {
             val respStr = transform((response.body?.string()) ?: "{}")
             result = respStr.toRespBean<R>()
             result?.retCode = if (response.isSuccessful) SUCCESS else ERROR
-            Log.d(TAG, "get response from url:$url retCode:${response.code} resp:$respStr")
+            Log.d("get response from url:$url retCode:${response.code} resp:$respStr")
             result.httpCode = response.code
         } catch (e: Exception) {
-            Log.e(TAG, "get exception by getReq url $url", e)
+            Log.e("get exception by getReq url $url", e)
             e.printStackTrace()
             result.retCode = NET_ERR
         }
@@ -133,7 +133,7 @@ object RequestManager {
                 var contentType: MediaType = "application/json".toMediaType()
                 json.toRequestBody(contentType)
             } ?: run { FormBody.Builder().build() }
-            Log.d(TAG, "start post request and url is $url requestBody:$json")
+            Log.d("start post request and url is $url requestBody:$json")
             val request = Request.Builder().apply {
                 url(url)
                 post(requestBody)
@@ -146,12 +146,12 @@ object RequestManager {
             val respStr = transform((response.body?.string()) ?: "{}")
             result = respStr.toRespBean<R>()
             result?.retCode = if (response.isSuccessful) SUCCESS else ERROR
-            Log.d(TAG, "get response from url:$url retCode:${response.code} resp:$respStr")
+            Log.d("get response from url:$url retCode:${response.code} resp:$respStr")
             result.httpCode = response.code
         } catch (e: Exception) {
             result.retCode = NET_ERR
             e.printStackTrace()
-            Log.e(TAG, "get exception by postReq url $url", e)
+            Log.e("get exception by postReq url $url", e)
         }
         return result
     }
